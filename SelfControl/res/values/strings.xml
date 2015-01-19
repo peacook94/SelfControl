@@ -9,7 +9,7 @@
     
     <!-- Strings der zwiten Activity!: -->
     
-    <string name="sekActivity">Zweiter Bildschirm</string>
+    <string name="sekActivity">Zweiter Bildschirm_TEST</string>
     <string name="title_activity_sek">Die zweite Activity</string>
 
 </resources>
