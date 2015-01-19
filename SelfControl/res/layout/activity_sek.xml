@@ -10,6 +10,12 @@
         android:layout_height="wrap_content"
         android:text="@string/sekActivity"/>
     
+    <TextView 
+        android:id="@+id/sekCounter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/customgrey" />
+    
     
 
 </LinearLayout>
