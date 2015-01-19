@@ -4,17 +4,11 @@
     android:layout_height="fill_parent"
     android:id="@+id/layout_main">
 
-    <TextView
-        android:id="@+id/counter"
+    <TextView 
+        android:id="@+id/sekUeberschrift"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/counterString"/>
-    
-    <Button 
-        android:id="@+id/mainButton1" 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/mainButton1Text" />"
+        android:text="@string/sekActivity"/>
     
     
 

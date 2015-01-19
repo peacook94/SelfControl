@@ -1,17 +1,52 @@
 package de.dresden.es.inf.Selfcontrol;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnTouchListener{
+	
+	int counter = 0;
 
+	@SuppressLint("ClickableViewAccessibility")
+	public boolean onTouch(View v, MotionEvent event)
+    {
+		
+		
+		if(event.getActionMasked() == MotionEvent.ACTION_DOWN) return true;
+		if(event.getActionMasked() == MotionEvent.ACTION_UP){ 
+		
+			counter++;
+        
+			TextView textView = (TextView) findViewById(R.id.counter);
+			textView.setText(String.valueOf(counter));
+        
+
+			return true;
+		}
+		 return false;
+		//false indicates the event is not consumed
+    }
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-	}
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        //den gesamten Bilschirm touchsensitiv machen
+        LinearLayout mLinearLayoutMain = (LinearLayout) findViewById(R.id.layout_main);
+        mLinearLayoutMain.setOnTouchListener(this);
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

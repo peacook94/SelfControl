@@ -4,5 +4,11 @@
     <string name="app_name">SelfControl</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="counterString">0</string>   
+    <string name="mainButton1Text">Switch zu zweitem Bildschirm</string>
+    
+    <!-- Strings der zwiten Activity!: -->
+    
+    <string name="sekActivity">Zweiter Bildschirm</string>
 
 </resources>
