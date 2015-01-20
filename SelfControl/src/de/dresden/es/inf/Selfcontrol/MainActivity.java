@@ -19,6 +19,12 @@ public class MainActivity extends Activity implements OnTouchListener{
 	
 	int counter = 0;
 
+	/**
+	 * Diese Methode ist essentiell für jeden OnTouchListener
+	 * In dieser Methode wird spezifiziert, was geschehen soll, wenn das MotionEvent
+	 * ausgelöst wird. 
+	 * Beim Auswerten
+	 */
 	@SuppressLint("ClickableViewAccessibility")
 	public boolean onTouch(View v, MotionEvent event)
     {

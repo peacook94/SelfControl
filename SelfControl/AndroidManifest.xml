@@ -25,7 +25,8 @@
         
         <activity
             android:name=".SekActivity"
-            android:label="@string/title_activity_sek">
+            android:label="@string/title_activity_sek"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 
