@@ -1,10 +1,14 @@
 package de.dresden.es.inf.Selfcontrol;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,12 +21,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.inputmethodservice.*;
 
 public class MainActivity extends Activity implements OnTouchListener{
 	
 	private final static String fileName = "count.txt";
 	
 	int counter = 0;
+	
+	public void saveLocally() throws IOException{
+		
+//		for(int i=0; i<=fileList().length; i++){
+//			if(fileList()[i].toString() == fileName) break;
+//			
+//		}
+		
+		FileOutputStream fos = openFileOutput(fileName, Context.MODE_PRIVATE);
+		fos.write(String.valueOf(counter).getBytes());
+		fos.close();
+		
+	}
 
 	/**
 	 * Diese Methode ist essentiell für jeden OnTouchListener
@@ -69,6 +87,8 @@ public class MainActivity extends Activity implements OnTouchListener{
         
         //Den Button zum ACTIVITY-switchen einbinden
         Button switchButton = (Button) findViewById(R.id.mainButton1);
+        
+        
         //Nun brauchen wir einen OnClickListener, damit wir mitbekommen, wann auf den Button gedrückt wurde
         switchButton.setOnClickListener(new View.OnClickListener(){
         	
@@ -84,7 +104,7 @@ public class MainActivity extends Activity implements OnTouchListener{
         		startActivity(nextScreen);
         	}
         });
-        
+        //switchButton.setOnTouchListener(this);
         
         
     }
