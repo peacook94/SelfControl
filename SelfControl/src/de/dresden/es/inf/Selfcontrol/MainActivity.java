@@ -1,5 +1,8 @@
 package de.dresden.es.inf.Selfcontrol;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +19,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnTouchListener{
+	
+	private final static String fileName = "count.txt";
 	
 	int counter = 0;
 
@@ -52,8 +57,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 	@Override
     public void onCreate(Bundle savedInstanceState)
     {
-		
-		
+					
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -80,6 +84,9 @@ public class MainActivity extends Activity implements OnTouchListener{
         		startActivity(nextScreen);
         	}
         });
+        
+        
+        
     }
 
 	@Override
