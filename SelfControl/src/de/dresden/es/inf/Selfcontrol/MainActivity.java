@@ -8,6 +8,8 @@ import java.io.*;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -106,8 +108,34 @@ public class MainActivity extends Activity implements OnTouchListener{
         });
         //switchButton.setOnTouchListener(this);
         
-        
+        //toogles to start the Service or not
+        startMyService();       
     }
+	
+	public boolean startMyService(){
+		
+		if(!isMyServiceRunning(SuperService.class)){
+		  Intent i = new Intent(this, SuperService.class);
+		  this.startService(i);
+		  
+		  return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean isMyServiceRunning(Class<?> serviceClass) {
+	    ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+	    
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	        if (serviceClass.getName().equals(service.service.getClassName())) {
+	            return true;
+	        }
+	    }
+	    
+	    return false;
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
