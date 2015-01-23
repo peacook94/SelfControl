@@ -7,9 +7,12 @@
     <string name="counterString">0</string>   
     <string name="mainButton1Text">Switch zu zweitem Bildschirm</string>
     
-    <!-- Strings der zwiten Activity!: -->
+    <!-- Strings der zweiten Activity!: -->
     
     <string name="sekActivity">Zweiter Bildschirm_TEST</string>
     <string name="title_activity_sek">Die zweite Activity</string>
-
+    
+    <!-- Strings des Services -->
+    
+    <string name="MyServiceLabel">MyService</string>
 </resources>
