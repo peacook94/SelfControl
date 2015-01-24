@@ -10,9 +10,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -30,6 +34,20 @@ public class MainActivity extends Activity implements OnTouchListener{
 	private final static String fileName = "count.txt";
 	
 	int counter = 0;
+	
+	protected ServiceConnection mServerConn = new ServiceConnection() {
+		
+	    @Override
+	    public void onServiceConnected(ComponentName name, IBinder binder) {
+	        //Log.d(LOG_TAG, "onServiceConnected");
+	    }
+
+	    @Override
+	    public void onServiceDisconnected(ComponentName name) {
+	        //Log.d(LOG_TAG, "onServiceDisconnected");
+	    	
+	    }
+	};
 	
 	public void saveLocally() throws IOException{
 		
@@ -108,21 +126,41 @@ public class MainActivity extends Activity implements OnTouchListener{
         });
         //switchButton.setOnTouchListener(this);
         
-        //toogles to start the Service or not
-        startMyService();       
+        Button serviceButton = (Button) findViewById(R.id.startServiceButton);
+        
+        serviceButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//toogles to start the Service or not
+				startMyService();
+				
+			}
+		});
+        
+        
+               
     }
 	
 	public boolean startMyService(){
+		Intent i = new Intent(this, SuperService.class);
 		
 		if(!isMyServiceRunning(SuperService.class)){
-		  Intent i = new Intent(this, SuperService.class);
-		  this.startService(i);
+			
+			this.bindService(i, mServerConn, Context.BIND_AUTO_CREATE);
+		    this.startService(i);
 		  
 		  return true;
-		}
-		
+		}else{
+			
+			this.stopService(new Intent(this, SuperService.class));
+			this.unbindService(mServerConn);
+			Toast.makeText(this, "Service stopped", Toast.LENGTH_SHORT).show();
 		return false;
+		}
 	}
+	
+	
 	
 	private boolean isMyServiceRunning(Class<?> serviceClass) {
 	    ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);

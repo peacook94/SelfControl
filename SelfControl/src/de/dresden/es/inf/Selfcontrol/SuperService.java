@@ -8,6 +8,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.widget.Toast;
 
 /**
  * Der Superservice dient uns als Superklasse für alle unsere weiteren Services.
@@ -39,6 +40,8 @@ public class SuperService extends Service{
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
       //TODO do something useful
+		
+		Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show();
 	  return Service.START_STICKY;
 	}
 

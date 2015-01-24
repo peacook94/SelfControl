@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="counterString">0</string>   
     <string name="mainButton1Text">Switch zu zweitem Bildschirm</string>
+    <string name="startServiceButton">Service starten</string>
     
     <!-- Strings der zweiten Activity!: -->
     

@@ -14,7 +14,14 @@
         android:id="@+id/mainButton1" 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mainButton1Text" />"
+        android:text="@string/mainButton1Text" />
+    
+    <Button 
+        android:id="@+id/startServiceButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/startServiceButton"/>
+        
     
     
 

@@ -24,9 +24,9 @@ public class SekActivity extends Activity{
 //				
 //		}); 
 		
-		DataPoint[] data = new DataPoint[20];
+		DataPoint[] data = new DataPoint[5];
 		
-		for(int i=0; i<=19;i++){
+		for(int i=0; i<=4;i++){
 			data[i] = new DataPoint(i*2, 2.0d+i);
 		}
 		
