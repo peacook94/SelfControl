@@ -1,6 +1,5 @@
 package de.dresden.es.inf.Selfcontrol;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,17 +37,27 @@ public class MainActivity extends Activity implements OnTouchListener{
 	
 	int counter = 0;
 	
+	
+	private SuperService myServiceBinder;
 	protected ServiceConnection mServerConn = new ServiceConnection() {
 		
 	    @Override
 	    public void onServiceConnected(ComponentName name, IBinder binder) {
-	        //Log.d(LOG_TAG, "onServiceConnected");
+	    	myServiceBinder = ((SuperService.MyBinder) binder ).getService();
+	    	Log.d("ServiceConnection","connected");
+	    	showServiceData();
 	    }
 
 	    @Override
 	    public void onServiceDisconnected(ComponentName name) {
-	        //Log.d(LOG_TAG, "onServiceDisconnected");
-	    	
+	    	Log.d("ServiceConnection","disconnected");
+	    	myServiceBinder = null;
+	    }
+	};
+	
+	public Handler myHandler = new Handler() {
+	    public void handleMessage(Message message) {
+	        Bundle data = message.getData();
 	    }
 	};
 	
@@ -60,6 +72,17 @@ public class MainActivity extends Activity implements OnTouchListener{
 		fos.write(String.valueOf(counter).getBytes());
 		fos.close();
 		
+	}
+	
+	public void doBindService() {
+	    Intent intent = null;
+	    intent = new Intent(this, SuperService.class);
+	    // Create a new Messenger for the communication back
+	    // From the Service to the Activity
+	    Messenger messenger = new Messenger(myHandler);
+	    intent.putExtra("MESSENGER", messenger);
+
+	    bindService(intent, mServerConn, Context.BIND_AUTO_CREATE);
 	}
 
 	/**
@@ -91,6 +114,34 @@ public class MainActivity extends Activity implements OnTouchListener{
 		 return false;
 		//false indicates the event is not consumed
     }
+	
+	@Override
+	public void onResume(){
+		Log.d("activity", "onResume");
+	    if (myServiceBinder == null) {
+	        doBindService();
+	    }
+	    super.onResume();
+	}
+	
+	@Override
+	protected void onPause() {
+	    //FIXME put back
+
+	    Log.d("activity", "onPause");
+	    if (myServiceBinder != null) {
+	        unbindService(mServerConn);
+	        myServiceBinder = null;
+	    }
+	    super.onPause();
+	}
+	
+	private void showServiceData() {  
+	    String date = myServiceBinder.getDate().toString();
+	    TextView myView = (TextView) findViewById(R.id.counter);
+	    myView.setText(date);
+	    Toast.makeText(this, date, Toast.LENGTH_SHORT).show();
+	}
 	
 	@Override
     public void onCreate(Bundle savedInstanceState)
