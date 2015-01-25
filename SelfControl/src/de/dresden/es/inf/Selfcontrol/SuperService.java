@@ -3,6 +3,7 @@ package de.dresden.es.inf.Selfcontrol;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import android.app.Service;
 import android.content.Intent;
@@ -28,16 +29,40 @@ public class SuperService extends Service{
 	private Messenger outMessenger;
 	
 	Date startingDate = new Date();
+	GregorianCalendar start;
 	
 	public Date getDate(){
 		return startingDate;
 	}
 	
+	public GregorianCalendar getStartDate(){
+		return start;
+	}
+	
+	public String getRunnedTime(GregorianCalendar today, GregorianCalendar past) {
+		 
+	    long difference = today.getTimeInMillis() - past.getTimeInMillis();
+	    int days = (int)(difference / (1000 * 60 * 60 * 24));
+	    int hours = (int)(difference / (1000 * 60 * 60) % 24);
+	    int minutes = (int)(difference / (1000 * 60) % 60);
+	    int seconds = (int)(difference / 1000 % 60);
+	    int millis = (int)(difference % 1000);
+	    
+	    StringBuilder time = new StringBuilder();
+	    time.append(days + " days, " +
+	  	      hours + " hours, " +
+		      minutes + " minutes, " +
+		      seconds + " seconds and " +
+		      millis + " milliseonds");
+	    return time.toString();
+	  }
+	
 	@Override
 	public void onCreate(){
 		super.onCreate();
 		
-		startingDate = Calendar.getInstance().getTime();
+		start = new GregorianCalendar();
+		//startingDate = Calendar.getInstance().getTime();
 	}
 
 	@Override

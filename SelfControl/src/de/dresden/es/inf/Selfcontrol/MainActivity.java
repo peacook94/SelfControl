@@ -2,6 +2,9 @@ package de.dresden.es.inf.Selfcontrol;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.io.*;
 
@@ -45,12 +48,13 @@ public class MainActivity extends Activity implements OnTouchListener{
 	    public void onServiceConnected(ComponentName name, IBinder binder) {
 	    	myServiceBinder = ((SuperService.MyBinder) binder ).getService();
 	    	Log.d("ServiceConnection","connected");
-	    	showServiceData();
+	    	//showServiceData();
 	    }
 
 	    @Override
 	    public void onServiceDisconnected(ComponentName name) {
 	    	Log.d("ServiceConnection","disconnected");
+	    	//showServiceData();
 	    	myServiceBinder = null;
 	    }
 	};
@@ -139,7 +143,10 @@ public class MainActivity extends Activity implements OnTouchListener{
 	private void showServiceData() {  
 	    String date = myServiceBinder.getDate().toString();
 	    TextView myView = (TextView) findViewById(R.id.counter);
-	    myView.setText(date);
+//	    
+//	    myView.setText(date);
+	    myView.setText(myServiceBinder.getRunnedTime(new GregorianCalendar(), myServiceBinder.getStartDate()));
+	    
 	    Toast.makeText(this, date, Toast.LENGTH_SHORT).show();
 	}
 	
@@ -175,7 +182,6 @@ public class MainActivity extends Activity implements OnTouchListener{
         		startActivity(nextScreen);
         	}
         });
-        //switchButton.setOnTouchListener(this);
         
         Button serviceButton = (Button) findViewById(R.id.startServiceButton);
         
@@ -189,7 +195,13 @@ public class MainActivity extends Activity implements OnTouchListener{
 			}
 		});
         
-        
+        Button getDataButton = (Button) findViewById(R.id.getServiceDataButton);
+        getDataButton.setOnClickListener(new View.OnClickListener(){
+        	@Override
+        	public void onClick(View v){
+        		showServiceData();
+        	}
+        });
                
     }
 	
