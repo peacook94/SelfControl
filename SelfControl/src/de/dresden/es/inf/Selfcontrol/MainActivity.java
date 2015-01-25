@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -143,11 +144,10 @@ public class MainActivity extends Activity implements OnTouchListener{
 	private void showServiceData() {  
 	    String date = myServiceBinder.getDate().toString();
 	    TextView myView = (TextView) findViewById(R.id.counter);
-//	    
-//	    myView.setText(date);
+
 	    myView.setText(myServiceBinder.getRunnedTime(new GregorianCalendar(), myServiceBinder.getStartDate()));
 	    
-	    Toast.makeText(this, date, Toast.LENGTH_SHORT).show();
+	    //Toast.makeText(this, date, Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override
@@ -202,6 +202,10 @@ public class MainActivity extends Activity implements OnTouchListener{
         		showServiceData();
         	}
         });
+        
+        if(isMyServiceRunning(SuperService.class)){
+        	Toast.makeText(this, "Service läuft ohne Aufruf",Toast.LENGTH_SHORT).show();
+        }
                
     }
 	

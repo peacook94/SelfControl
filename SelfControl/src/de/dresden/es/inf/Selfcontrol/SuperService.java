@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Bundle;
@@ -28,11 +30,10 @@ public class SuperService extends Service{
 	private final IBinder mBinder = new MyBinder();
 	private Messenger outMessenger;
 	
-	Date startingDate = new Date();
 	GregorianCalendar start;
 	
 	public Date getDate(){
-		return startingDate;
+		return start.getTime();
 	}
 	
 	public GregorianCalendar getStartDate(){
@@ -90,5 +91,7 @@ public class SuperService extends Service{
 	        return SuperService.this;
 	    }
 	}
+	
+	
 
 }

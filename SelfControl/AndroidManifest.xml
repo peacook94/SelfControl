@@ -7,6 +7,8 @@
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="17" />
+    
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +34,12 @@
             android:name="SuperService"
             android:label="@string/MyServiceLabel">
         </service>
+        
+        <receiver android:name=".BootBroadcastReceiver">  
+    		<intent-filter>  
+        	<action android:name="android.intent.action.BOOT_COMPLETED" />  
+    		</intent-filter>  
+		</receiver>
     </application>
 
 </manifest>
