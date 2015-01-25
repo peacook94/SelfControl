@@ -32,6 +32,8 @@ public class SuperService extends Service{
 	
 	GregorianCalendar start;
 	
+	GregorianCalendar browserStart;
+	
 	public Date getDate(){
 		return start.getTime();
 	}
