@@ -23,7 +23,7 @@ http://www.noobis.de/android/203-android-zwischen-activity-wechseln-und-werte-ue
 Storage Options in Android
 
 http://developer.android.com/guide/topics/data/data-storage.html (overview to storage options)
-http://developer.android.com/guide/topics/data/data-storage.html (SQLite Tutorial)
+http://www.androidhive.info/2013/09/android-sqlite-database-with-multiple-tables/ (SQLite Tutorial)
 
 Calendar and Time Calculations
 
