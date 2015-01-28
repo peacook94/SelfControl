@@ -15,7 +15,7 @@ public class SQLHelper extends SQLiteOpenHelper{
 	private static final String DATABASE_NAME = "Apps";
 	
 	//Table-name
-	private static final String TABLE_NAME = "apps";
+	private static final String TABLE_APPS = "apps";
 	
 	//Apps-Table Columns name
 	private static final String KEY_ID = "id";
@@ -65,11 +65,20 @@ public class SQLHelper extends SQLiteOpenHelper{
         values.put(KEY_RUNTIME, String.valueOf(runtime));
         
         //3. Insert
-        db.insert(TABLE_NAME, null, values);
+        db.insert(TABLE_APPS, null, values);
         
         //4. close
         db.close();
 	}
+	
+//	public Map<Date, String> getAppWithDate(String appName){
+//		// 1. get reference to readable DB
+//	    SQLiteDatabase db = this.getReadableDatabase();
+//	    
+//	 // 2. build query
+//	    Cursor cursor = 
+//	    		db.query(TABLE_APPS, COLUMNS,"label=?", selectionArgs, groupBy, having, orderBy, limit, cancellationSignal)
+//	}
 	
 //	public long getRuntime(int id){
 //		
