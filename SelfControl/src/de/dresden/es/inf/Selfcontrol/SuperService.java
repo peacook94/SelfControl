@@ -4,7 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -86,6 +90,23 @@ public class SuperService extends Service{
 		
 		Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show();
 	  return Service.START_STICKY;
+	}
+	
+	//laufende apps auslesen
+	public List<RunningTaskInfo> getRunningApps(){
+		
+		ActivityManager activityManager = (ActivityManager) this.getSystemService(Activity.ACTIVITY_SERVICE);
+		List<RunningTaskInfo> runningTasks = activityManager.getRunningTasks(99);
+				
+		return runningTasks;
+	}
+	
+	public List<ActivityManager.RunningServiceInfo> getRunningServices(){
+		
+		 ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+		 List<ActivityManager.RunningServiceInfo> services = activityManager.getRunningServices(Integer.MAX_VALUE);
+
+		 return services;
 	}
 	
 	public class MyBinder extends Binder {

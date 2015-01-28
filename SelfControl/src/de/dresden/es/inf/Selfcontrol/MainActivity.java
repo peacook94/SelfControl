@@ -147,6 +147,31 @@ public class MainActivity extends Activity implements OnTouchListener{
 
 	    myView.setText(myServiceBinder.getRunnedTime(new GregorianCalendar(), myServiceBinder.getStartDate()));
 	    
+	    
+	    
+	    
+	    
+	    for(int i = 0; i < myServiceBinder.getRunningApps().size(); i++){
+	    	
+	    	String task = myServiceBinder.getRunningApps().get(i).topActivity.getPackageName();
+	    	
+	    	Toast.makeText(this, task, Toast.LENGTH_SHORT).show();
+	    }
+	    
+	    
+	    
+	    /*
+	    long currentMillis = Calendar.getInstance().getTimeInMillis();        
+		Calendar cal = Calendar.getInstance();
+		
+		for (ActivityManager.RunningServiceInfo info : myServiceBinder.getRunningServices()) {
+			
+			cal.setTimeInMillis(currentMillis-info.activeSince);
+		    String text = info.process + ", " + info.service.getClassName() + ", " + cal.getTime().toString() + ", " + info.activeSince;
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		 }*/	    
+	    
+	    
 	    //Toast.makeText(this, date, Toast.LENGTH_SHORT).show();
 	}
 	
