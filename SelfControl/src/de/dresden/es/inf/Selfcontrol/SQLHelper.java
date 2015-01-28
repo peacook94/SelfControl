@@ -2,20 +2,35 @@ package de.dresden.es.inf.Selfcontrol;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class SQLHelper extends SQLiteOpenHelper{
+	
+	private static DateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss");
 	
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "Apps";
 	
 	//Table-name
 	private static final String TABLE_APPS = "apps";
+	
+	/**
+	 * "id" ist ein automatisch vergebener aufsteigend nummerierte Identifier
+	 * "date" ist ein Zeitstempel, der aussagt wann entsprechende App gestartet wurde
+	 * "label" Name/Bezeichnugn der App
+	 * "runtime" wie lange lief die App
+	 * 
+	 */
 	
 	//Apps-Table Columns name
 	private static final String KEY_ID = "id";
@@ -71,14 +86,32 @@ public class SQLHelper extends SQLiteOpenHelper{
         db.close();
 	}
 	
-//	public Map<Date, String> getAppWithDate(String appName){
-//		// 1. get reference to readable DB
-//	    SQLiteDatabase db = this.getReadableDatabase();
-//	    
-//	 // 2. build query
-//	    Cursor cursor = 
-//	    		db.query(TABLE_APPS, COLUMNS,"label=?", selectionArgs, groupBy, having, orderBy, limit, cancellationSignal)
-//	}
+	/**
+	 * Gibt eine Map zurück, in der zu jedem Zeitstempel die entsprechende App eingetragen ist.
+	 * 
+	 * @param appName
+	 * @return
+	 * @throws ParseException
+	 */
+	
+	public Map<Date, String> getAppWithDate(String[] appName) throws ParseException{
+		Map<Date, String> temp = new HashMap<Date, String>();
+		
+		// 1. get reference to readable DB
+	    SQLiteDatabase db = this.getReadableDatabase();
+	    
+	 // 2. build query
+	    Cursor cursor = 
+	    		db.query(TABLE_APPS, COLUMNS,"label=?",  appName, null, null, null);
+	    
+	   //3. search result
+	    while(!cursor.isAfterLast()){	    	
+	    	temp.put(sdf.parse(cursor.getString(1)), cursor.getString(2)); //date un label in die temp-Map schreiben, Zeiel für Zeile 	    	
+	    	cursor.moveToNext();
+	    }
+	    
+	    return temp;
+	}
 	
 //	public long getRuntime(int id){
 //		
