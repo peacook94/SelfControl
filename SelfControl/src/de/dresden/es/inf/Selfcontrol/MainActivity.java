@@ -60,6 +60,17 @@ public class MainActivity extends Activity implements OnTouchListener{
 	    }
 	};
 	
+	private void showRunningApps(){
+	    
+		for(int i = 0; i < myServiceBinder.getRunningApps().size(); i++){
+	    	
+	    	String task = myServiceBinder.getRunningApps().get(i).topActivity.getPackageName();
+	    	
+	    	Toast.makeText(this, task, Toast.LENGTH_SHORT).show();
+	    }
+
+	}
+	
 	public Handler myHandler = new Handler() {
 	    public void handleMessage(Message message) {
 	        Bundle data = message.getData();
@@ -134,12 +145,14 @@ public class MainActivity extends Activity implements OnTouchListener{
 	    //FIXME put back
 
 	    Log.d("activity", "onPause");
-	    if (myServiceBinder != null) {
-	        unbindService(mServerConn);
-	        myServiceBinder = null;
-	    }
+//	    if (myServiceBinder != null) {
+//	        unbindService(mServerConn);
+//	        myServiceBinder = null;
+//	    }
 	    super.onPause();
 	}
+	
+
 	
 	private void showServiceData() {  
 	    String date = myServiceBinder.getDate().toString();
@@ -147,30 +160,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 
 	    myView.setText(myServiceBinder.getRunnedTime(new GregorianCalendar(), myServiceBinder.getStartDate()));
 	    
-	    
-	    
-	    
-	    
-	    for(int i = 0; i < myServiceBinder.getRunningApps().size(); i++){
-	    	
-	    	String task = myServiceBinder.getRunningApps().get(i).topActivity.getPackageName();
-	    	
-	    	Toast.makeText(this, task, Toast.LENGTH_SHORT).show();
-	    }
-	    
-	    
-	    
-	    /*
-	    long currentMillis = Calendar.getInstance().getTimeInMillis();        
-		Calendar cal = Calendar.getInstance();
-		
-		for (ActivityManager.RunningServiceInfo info : myServiceBinder.getRunningServices()) {
-			
-			cal.setTimeInMillis(currentMillis-info.activeSince);
-		    String text = info.process + ", " + info.service.getClassName() + ", " + cal.getTime().toString() + ", " + info.activeSince;
-		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-		 }*/	    
-	    
+	    //showRunningApps();
 	    
 	    //Toast.makeText(this, date, Toast.LENGTH_SHORT).show();
 	}

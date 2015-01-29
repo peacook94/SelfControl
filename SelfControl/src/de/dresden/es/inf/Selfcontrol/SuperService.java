@@ -15,7 +15,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
 import android.widget.Toast;
@@ -70,6 +72,41 @@ public class SuperService extends Service{
 		
 		start = new GregorianCalendar();
 		//startingDate = Calendar.getInstance().getTime();
+
+		  /***/
+		  Toast.makeText(this, "MirkoService running", Toast.LENGTH_SHORT).show();
+
+		    final Handler handler = new Handler(){
+
+		        @Override
+		        public void handleMessage(Message msg) {
+		            // TODO Auto-generated method stub
+		            super.handleMessage(msg);
+		            getRunningApps();
+		        }
+
+		    };
+		    
+
+		    new Thread(new Runnable(){
+		        public void run() {
+		        // TODO Auto-generated method stub
+		        while(true)
+		        {
+		           try {
+		        	   //5000 = 5 sekunden
+		            Thread.sleep(5000);
+		            handler.sendEmptyMessage(0);
+
+		        } catch (InterruptedException e) {
+		            // TODO Auto-generated catch block
+		            e.printStackTrace();
+		        	} 
+
+		        }
+
+		       }
+		    }).start();
 	}
 
 	@Override
@@ -89,25 +126,28 @@ public class SuperService extends Service{
       //TODO do something useful
 		
 		Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show();
-	  return Service.START_STICKY;
+		return Service.START_STICKY;
 	}
+	
 	
 	//laufende apps auslesen
 	public List<RunningTaskInfo> getRunningApps(){
 		
 		ActivityManager activityManager = (ActivityManager) this.getSystemService(Activity.ACTIVITY_SERVICE);
-		List<RunningTaskInfo> runningTasks = activityManager.getRunningTasks(99);
-				
+		List<RunningTaskInfo> runningTasks = activityManager.getRunningTasks(Integer.MAX_VALUE);
+			
+		//Toast.makeText(this, "getRunningApps wird aufgerufen", Toast.LENGTH_SHORT).show();
+		
+		//com.android.chrome
+		for(int i = 0; i < runningTasks.size(); i++){
+			if(runningTasks.get(i).topActivity.getPackageName().equals("com.android.chrome")){
+				Toast.makeText(this, "Chrome läuft", Toast.LENGTH_SHORT).show();
+			}
+		}
+		
 		return runningTasks;
 	}
 	
-	public List<ActivityManager.RunningServiceInfo> getRunningServices(){
-		
-		 ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-		 List<ActivityManager.RunningServiceInfo> services = activityManager.getRunningServices(Integer.MAX_VALUE);
-
-		 return services;
-	}
 	
 	public class MyBinder extends Binder {
 	    SuperService getService() {
