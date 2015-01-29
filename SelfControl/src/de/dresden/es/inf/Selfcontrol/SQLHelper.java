@@ -33,8 +33,8 @@ public class SQLHelper extends SQLiteOpenHelper{
 	 */
 	
 	//Apps-Table Columns name
-	private static final String KEY_ID = "id";
 	private static final String KEY_DATE ="date";
+	private static final String KEY_ID = "AppId";
 	private static final String KEY_LABEL ="label";
 	private static final String KEY_RUNTIME ="runtime";
 	
@@ -48,8 +48,8 @@ public class SQLHelper extends SQLiteOpenHelper{
 	public void onCreate(SQLiteDatabase db) {
 		// Create table "apps"
 		String CREATE_APPS_TABLE = "CREATE TABLE apps (" +
-		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-				"date DATE" +
+				"date DATE PRIMARY KEY" +
+				"AppId INTEGER, " +
 				"label TEXT, " +
 				"runtime LONG";
 		
@@ -67,7 +67,7 @@ public class SQLHelper extends SQLiteOpenHelper{
 		
 	}
 	
-	public void addApp(Date date,String appName, long runtime){
+	public void addApp(int AppId, Date date,String appName, long runtime){
 		Log.d("adding App: ", appName);
 		
 		// 1. get reference to writable DB
@@ -89,12 +89,12 @@ public class SQLHelper extends SQLiteOpenHelper{
 	/**
 	 * Gibt eine Map zurück, in der zu jedem Zeitstempel die entsprechende App eingetragen ist.
 	 * 
-	 * @param appName
+	 * @param appName einer oder mehrere appBezeichnungen
 	 * @return
-	 * @throws ParseException
+	 * @throws ParseException wenn das eingetragene Datum von String zu Date konvertiert wird ein Fehler auftritt
 	 */
 	
-	public Map<Date, String> getAppWithDate(String[] appName) throws ParseException{
+	public Map<Date, String> getAppWithDate(String appName) throws ParseException{
 		Map<Date, String> temp = new HashMap<Date, String>();
 		
 		// 1. get reference to readable DB
@@ -102,7 +102,7 @@ public class SQLHelper extends SQLiteOpenHelper{
 	    
 	 // 2. build query
 	    Cursor cursor = 
-	    		db.query(TABLE_APPS, COLUMNS,"label=?",  appName, null, null, null);
+	    		db.query(TABLE_APPS, COLUMNS,"label=?",  new String[] {appName}, null, null, null);
 	    
 	   //3. search result
 	    while(!cursor.isAfterLast()){	    	

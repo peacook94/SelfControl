@@ -1,5 +1,6 @@
-package de.dresden.es.inf.Selfcontrol;
+package de.dresden.es.inf.Selfcontrol.BroadcastReceiver;
 
+import de.dresden.es.inf.Selfcontrol.SuperService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
