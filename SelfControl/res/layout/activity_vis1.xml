@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="de.dresden.es.inf.Selfcontrol.Vis1" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
+
+    <RadioGroup
+        android:id="@+id/Vis1radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1" >
+
+        <RadioButton
+            android:id="@+id/Vis1radio0_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/vis1rad00" />
+
+        <RadioButton
+            android:id="@+id/Vis1radio0_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vis1rad01" />
+
+        <RadioButton
+            android:id="@+id/Vis1radio0_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vis1rad02" />
+    </RadioGroup>
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/sekGraph"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignTop="@+id/Vis1radioGroup1"
+        android:layout_toLeftOf="@+id/Vis1radioGroup1" />
+
+</RelativeLayout>

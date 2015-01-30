@@ -20,6 +20,12 @@
     <com.jjoe64.graphview.GraphView
         android:id="@+id/sekGraph"
         android:layout_width="match_parent"
-        android:layout_height="200dp" /> 
+        android:layout_height="200dp"
+        /> 
+        <!-- android:title="@string/GraphTitle1" -->
+        <!-- GraphView:seriesType="line" -->
+        <!-- app:seriesColor="7f7f7f"
+        app:seriesTitle="whoCares" -->
+        
 
 </LinearLayout>
