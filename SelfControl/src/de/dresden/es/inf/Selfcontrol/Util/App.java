@@ -2,17 +2,22 @@ package de.dresden.es.inf.Selfcontrol.Util;
 
 import java.util.Date;
 
+/**
+ * Diese Klasse ist wie ein Container. Wenn eine App gestartet wurde, wird der Container gefüllt und an die 
+ * Datenbank weitergegeben, damit er eingetragen werden kann.
+ * 
+ * @author User
+ *
+ */
+
 public class App {
 
 	AppId id;
 	Date startingTimstamp;
-	String label;
-	long runtime;
 	
 	public App(Date startingTimestamp, String label, AppId id){
 		this.id = id;
 		this.startingTimstamp = startingTimestamp;
-		this.label = label;
 		
 	}
 
@@ -26,21 +31,5 @@ public class App {
 
 	public void setStartingTimstamp(Date startingTimstamp) {
 		this.startingTimstamp = startingTimstamp;
-	}
-
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
-	public long getRuntime() {
-		return runtime;
-	}
-
-	public void setRuntime(long runtime) {
-		this.runtime = runtime;
 	}
 }
