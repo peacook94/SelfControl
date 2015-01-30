@@ -20,7 +20,7 @@
         android:id="@+id/mainButton2" 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mainButton1Text"/>
+        android:text="@string/mainButton2Text"/>
     
     <Button 
         android:id="@+id/startServiceButton"

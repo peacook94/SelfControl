@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="counterString">0</string>
     <string name="mainButton1Text">Gesamtzeit</string>
+    <string name="mainButton2Text">test_Alex</string>
     <string name="startServiceButton">Service starten</string>
     <string name="getServiceData">Service Runtime abfragen</string>
 
