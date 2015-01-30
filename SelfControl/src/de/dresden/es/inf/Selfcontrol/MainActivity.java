@@ -209,6 +209,17 @@ public class MainActivity extends Activity implements OnTouchListener{
         	}
         });
         
+        Button switchButton2 = (Button) findViewById(R.id.mainButton2);
+        switchButton2.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent nextScreen = new Intent(getApplicationContext(), Vis1.class);
+				
+				startActivity(nextScreen);
+			}
+		});
+        
         Button serviceButton = (Button) findViewById(R.id.startServiceButton);
         
         serviceButton.setOnClickListener(new View.OnClickListener() {

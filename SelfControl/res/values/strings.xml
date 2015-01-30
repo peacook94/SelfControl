@@ -6,12 +6,13 @@
     <string name="app_name">SelfControl</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="counterString">0</string>   
-    <string name="mainButton1Text">Switch zu zweitem Bildschirm</string>
+    <string name="counterString">0</string>
+    <string name="mainButton1Text">Gesamtzeit</string>
+    <string name="mainButton2Text">test_Alex</string>
     <string name="startServiceButton">Service starten</string>
     <string name="getServiceData">Service Runtime abfragen</string>
     <string name="lockStatusString">lockStatus</string>
-    
+
     <!-- Strings der zweiten Activity!: -->
 
     <string name="sekActivity">Zweiter Bildschirm_TEST</string>
