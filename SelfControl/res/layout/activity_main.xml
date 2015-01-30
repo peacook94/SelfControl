@@ -33,16 +33,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/getServiceData"/>
-<<<<<<< HEAD
         
     <TextView
         android:id="@+id/lockStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lockStatusString"/>    
-=======
-
->>>>>>> b771387e3894916d9c490f44581fbd467c950cf0
-    
 
 </LinearLayout>
