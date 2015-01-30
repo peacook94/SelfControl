@@ -9,6 +9,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.KeyguardManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -21,6 +22,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -32,6 +34,9 @@ import android.widget.Toast;
  */
 
 public class SuperService extends Service{
+	
+	String status = "";
+	int statusCounter = 0;
 	
 	private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	private final IBinder mBinder = new MyBinder();
@@ -83,7 +88,10 @@ public class SuperService extends Service{
 		        public void handleMessage(Message msg) {
 		            // TODO Auto-generated method stub
 		            super.handleMessage(msg);
+		            
 		            getRunningApps();
+		            getLockStatus();
+		            statusCounter++;
 		        }
 
 		    };
@@ -130,6 +138,17 @@ public class SuperService extends Service{
 		return Service.START_STICKY;
 	}
 	
+	public String getLockStatus(){
+		
+		KeyguardManager myKGM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+		if(myKGM.inKeyguardRestrictedInputMode()){
+			status = status + " locked" + statusCounter;
+		}else{
+			status = status + " unlocked" + statusCounter;
+		}
+		
+		return status;
+	}
 	
 	//laufende apps auslesen
 	public List<RunningTaskInfo> getRunningApps(){
@@ -137,8 +156,6 @@ public class SuperService extends Service{
 		ActivityManager activityManager = (ActivityManager) this.getSystemService(Activity.ACTIVITY_SERVICE);
 		List<RunningTaskInfo> runningTasks = activityManager.getRunningTasks(Integer.MAX_VALUE);
 			
-		//Toast.makeText(this, "getRunningApps wird aufgerufen", Toast.LENGTH_SHORT).show();
-		
 		ArrayList<String> appFilter = new ArrayList<String>();
 		appFilter.add("com.android.chrome");
 		appFilter.add("com.google.android.talk");

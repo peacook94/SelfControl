@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
+import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -22,6 +23,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.support.v4.app.INotificationSideChannel.Stub;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,6 +42,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 	private final static String fileName = "count.txt";
 	
 	int counter = 0;
+	String status = "";
 	
 	
 	private SuperService myServiceBinder;
@@ -131,6 +134,12 @@ public class MainActivity extends Activity implements OnTouchListener{
 		//false indicates the event is not consumed
     }
 	
+	public void getLockStatus(){
+		
+		TextView textView = (TextView) findViewById(R.id.lockStatus);
+		textView.setText(myServiceBinder.getLockStatus());
+	}
+	
 	@Override
 	public void onResume(){
 		Log.d("activity", "onResume");
@@ -159,6 +168,8 @@ public class MainActivity extends Activity implements OnTouchListener{
 	    TextView myView = (TextView) findViewById(R.id.counter);
 
 	    myView.setText(myServiceBinder.getRunnedTime(new GregorianCalendar(), myServiceBinder.getStartDate()));
+	    
+	    getLockStatus();
 	    
 	    //showRunningApps();
 	    

@@ -8,6 +8,7 @@
     <string name="mainButton1Text">Switch zu zweitem Bildschirm</string>
     <string name="startServiceButton">Service starten</string>
     <string name="getServiceData">Service Runtime abfragen</string>
+    <string name="lockStatusString">lockStatus</string>
     
     <!-- Strings der zweiten Activity!: -->
     
