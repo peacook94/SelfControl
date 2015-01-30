@@ -85,8 +85,20 @@ public class SekActivity extends Activity{
 		radioButton[0] = (RadioButton) findViewById(R.id.Vis1radio1_0);
 		radioButton[1] = (RadioButton) findViewById(R.id.Vis1radio1_0);
 		radioButton[2] = (RadioButton) findViewById(R.id.Vis1radio1_0);
+		for(int c=0;c<3;c++)
+		{
+			radioButton[c].setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					onRadioButtonClicked(v);
+				}
+			});
+		}
 		
 		
+		drawGraph(5);
 		
 		
 		
