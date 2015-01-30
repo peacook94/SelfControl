@@ -1,6 +1,7 @@
 package de.dresden.es.inf.Selfcontrol;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -74,7 +75,7 @@ public class SuperService extends Service{
 		//startingDate = Calendar.getInstance().getTime();
 
 		  /***/
-		  Toast.makeText(this, "MirkoService running", Toast.LENGTH_SHORT).show();
+		  Toast.makeText(this, "PollService running", Toast.LENGTH_SHORT).show();
 
 		    final Handler handler = new Handler(){
 
@@ -138,14 +139,33 @@ public class SuperService extends Service{
 			
 		//Toast.makeText(this, "getRunningApps wird aufgerufen", Toast.LENGTH_SHORT).show();
 		
-		//com.android.chrome
-		for(int i = 0; i < runningTasks.size(); i++){
-			if(runningTasks.get(i).topActivity.getPackageName().equals("com.android.chrome")){
-				Toast.makeText(this, "Chrome läuft", Toast.LENGTH_SHORT).show();
-			}
-		}
+		ArrayList<String> appFilter = new ArrayList<String>();
+		appFilter.add("com.android.chrome");
+		appFilter.add("com.google.android.talk");
+		filterRunningApp(runningTasks, appFilter);
 		
 		return runningTasks;
+	}
+	
+	/**
+	 * 
+	 * gives a toast if a specific app is running
+	 * 
+	 * @param runningTasks
+	 * @param appFilter
+	 */
+	public void filterRunningApp(List<RunningTaskInfo> runningTasks, ArrayList<String> appFilter){
+		
+		for(int i = 0; i < runningTasks.size(); i++){
+			
+			for(int j = 0; j < appFilter.size(); j++){
+
+				if(runningTasks.get(i).topActivity.getPackageName().equals(appFilter.get(j))){
+					Toast.makeText(this, appFilter.get(j) + " läuft", Toast.LENGTH_SHORT).show();
+					
+				}
+			}
+		}
 	}
 	
 	

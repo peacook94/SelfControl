@@ -134,9 +134,9 @@ public class MainActivity extends Activity implements OnTouchListener{
 	@Override
 	public void onResume(){
 		Log.d("activity", "onResume");
-	    if (myServiceBinder == null) {
-	        doBindService();
-	    }
+//	    if (myServiceBinder == null) {
+//	        doBindService();
+//	    }
 	    super.onResume();
 	}
 	
