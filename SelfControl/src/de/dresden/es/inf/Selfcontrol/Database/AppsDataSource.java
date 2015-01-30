@@ -69,8 +69,8 @@ public class AppsDataSource {
 	 * @throws ParseException wenn das eingetragene Datum von String zu Date konvertiert wird ein Fehler auftritt
 	 */
 	
-	public Map<Date, String> getAppWithDates(AppId appId) throws ParseException{
-		Map<Date, String> temp = new HashMap<Date, String>();
+	public Map<Date, AppId> getAppWithDates(AppId appId) throws ParseException{
+		Map<Date, AppId> temp = new HashMap<Date, AppId>();
 	    
 	    // 2. build query
 	    Cursor cursor = 
@@ -78,7 +78,7 @@ public class AppsDataSource {
 	    	    	    
 	   //3. search result
 	    while(cursor.moveToNext()){	
-	    	temp.put(sdf.parse(cursor.getString(0)), cursor.getString(1)); //date und AppId in die temp-Map schreiben, Zeiel für Zeile 	    	
+	    	temp.put(sdf.parse(cursor.getString(0)), AppId.valueOf(cursor.getString(1))); //date und AppId in die temp-Map schreiben, Zeiel für Zeile 	    	
 	    }
 	    cursor.close();
 	    
