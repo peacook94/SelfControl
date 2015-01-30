@@ -15,7 +15,7 @@
         android:id="@+id/Vis1radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/textView1" >
 
         <RadioButton
@@ -37,12 +37,5 @@
             android:layout_height="wrap_content"
             android:text="@string/vis1rad02" />
     </RadioGroup>
-
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/sekGraph"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignTop="@+id/Vis1radioGroup1"
-        android:layout_toLeftOf="@+id/Vis1radioGroup1" />
 
 </RelativeLayout>

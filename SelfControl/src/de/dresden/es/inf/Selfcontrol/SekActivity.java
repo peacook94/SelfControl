@@ -8,11 +8,41 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class SekActivity extends Activity{
 	
-	public void drawGraph(){
+	public void onRadioButtonClicked(View view) {
+	    // Is the button now checked?
+	    boolean checked = ((RadioButton) view).isChecked();
+	    
+	    // Check which radio button was clicked
+	    switch(view.getId()) {
+	        case R.id.Vis1radio1_0:
+	            if (checked)
+	            {
+	            	drawGraph(24);
+	            }
+	            break;
+	        case R.id.Vis1radio1_1:
+	            if (checked)
+	            {
+	            	drawGraph(7);
+	            }
+	            break;
+	        case R.id.Vis1radio1_2:
+	            if (checked)
+	            {
+	            	drawGraph(30);
+	            }
+	            break;
+	    }
+	}
+	
+	public void drawGraph(int length){
 		
 		GraphView gView = (GraphView) findViewById(R.id.sekGraph);
 		
@@ -24,9 +54,9 @@ public class SekActivity extends Activity{
 //				
 //		}); 
 		
-		DataPoint[] data = new DataPoint[5];
+		DataPoint[] data = new DataPoint[length];
 		
-		for(int i=0; i<=4;i++){
+		for(int i=0; i<length;i++){
 			data[i] = new DataPoint(i*2, 2.0d+i);
 		}
 		
@@ -49,7 +79,16 @@ public class SekActivity extends Activity{
 		
 		sekCounter.setText(count);
 		
-		drawGraph();
+//		radiobutton:
+		RadioButton radioButton[];
+		radioButton = new RadioButton[3];
+		radioButton[0] = (RadioButton) findViewById(R.id.Vis1radio1_0);
+		radioButton[1] = (RadioButton) findViewById(R.id.Vis1radio1_0);
+		radioButton[2] = (RadioButton) findViewById(R.id.Vis1radio1_0);
+		
+		
+		
+		
 		
 	}
 
