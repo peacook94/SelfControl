@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:id="@+id/layout_main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/layout_main">
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/counter"
@@ -17,6 +17,12 @@
         android:text="@string/mainButton1Text" />
     
     <Button 
+        android:id="@+id/mainButton2" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mainButton1Text"/>
+    
+    <Button 
         android:id="@+id/startServiceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,12 +33,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/getServiceData"/>
+<<<<<<< HEAD
         
     <TextView
         android:id="@+id/lockStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lockStatusString"/>    
+=======
+
+>>>>>>> b771387e3894916d9c490f44581fbd467c950cf0
     
 
 </LinearLayout>
