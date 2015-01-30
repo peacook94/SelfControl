@@ -27,8 +27,8 @@
         android:id="@+id/Vis1radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/sekGraph" >
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/sekGraph" >
 
         <RadioButton
             android:id="@+id/Vis1radio1_0"
@@ -36,18 +36,23 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/vis1rad00" />
-
-        <RadioButton
-            android:id="@+id/Vis1radio1_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/vis1rad01" />
-
-        <RadioButton
-            android:id="@+id/Vis1radio1_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/vis1rad02" />
     </RadioGroup>
+
+    <RadioButton
+        android:id="@+id/Vis1radio1_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/Vis1radioGroup1"
+        android:layout_toRightOf="@+id/Vis1radioGroup1"
+        android:text="@string/vis1rad01" />
+
+    <RadioButton
+        android:id="@+id/Vis1radio1_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Vis1radio1_1"
+        android:layout_alignBottom="@+id/Vis1radio1_1"
+        android:layout_toRightOf="@+id/Vis1radio1_1"
+        android:text="@string/vis1rad02" />
 
 </RelativeLayout>
