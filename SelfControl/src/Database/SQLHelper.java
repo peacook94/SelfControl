@@ -1,4 +1,4 @@
-package de.dresden.es.inf.Selfcontrol;
+package Database;
 
 import android.content.ContentValues;
 import android.content.Context;
