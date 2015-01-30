@@ -19,13 +19,13 @@ import de.dresden.es.inf.Selfcontrol.Util.AppId;
 
 public class MySQLHelper extends SQLiteOpenHelper{
 	
-	private static DateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss");
+//	private static DateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss");
 	
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "apps.db";
 	
 	//Table-name
-	private static final String TABLE_APPS = "apps";
+	public static final String TABLE_APPS = "apps";
 	
 	/**
 	 * "id" ist die AppId
@@ -71,54 +71,6 @@ public class MySQLHelper extends SQLiteOpenHelper{
 	}
 	
 	
-	/**
-	 * Hinzufügen einer App zur Datenbank -> Generierung eines neuen Datenbankeintrags
-	 * 
-	 * @param app bezeichnet den gefüllten App-Container
-	 */
 	
-	public void addApp(App app){
-		Log.d("adding App: ", app.getId().toString());
-		
-		// 1. get reference to writable DB
-        SQLiteDatabase db = this.getWritableDatabase();
-        
-        // 2. create ContentValues to add key "column"/value
-        ContentValues values = new ContentValues();
-        values.put(KEY_DATE, app.getStartingTimstamp().toString());
-        values.put(KEY_ID, app.getId().toString());
-        
-        //3. Insert
-        db.insert(TABLE_APPS, null, values);
-        
-        //4. close
-        db.close();
-	}
-	
-	/**
-	 * Gibt eine Map zurück, in der zu jedem Zeitstempel die entsprechende App eingetragen ist.
-	 * 
-	 * @param appName einer oder mehrere appBezeichnungen
-	 * @return
-	 * @throws ParseException wenn das eingetragene Datum von String zu Date konvertiert wird ein Fehler auftritt
-	 */
-	
-	public Map<Date, String> getAppWithDates(AppId appId) throws ParseException{
-		Map<Date, String> temp = new HashMap<Date, String>();
-		
-		// 1. get reference to readable DB
-	    SQLiteDatabase db = this.getReadableDatabase();
-	    
-	    // 2. build query
-	    Cursor cursor = 
-	    		db.query(TABLE_APPS, COLUMNS,"AppId=?",  new String[] {appId.toString()}, null, null, null);
-	    	    	    
-	   //3. search result
-	    while(cursor.moveToNext()){	
-	    	temp.put(sdf.parse(cursor.getString(0)), cursor.getString(1)); //date und AppId in die temp-Map schreiben, Zeiel für Zeile 	    	
-	    }
-	    
-	    return temp;
-	}
 
 }
