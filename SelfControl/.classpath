@@ -8,6 +8,5 @@
 	<classpathentry exported="true" kind="lib" path="libs/GraphView-4.0.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/androidplot-core-0.6.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/android-support-v4.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files (x86)/Android/android-sdk/extras/android/support/v17/leanback/libs/android-support-v17-leanback.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
