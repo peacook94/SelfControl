@@ -24,31 +24,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-<<<<<<< HEAD
-        </activity>
-        <activity
-            android:name=".SekActivity"
-            android:label="@string/title_activity_sek"
-            android:parentActivityName=".MainActivity" >
-        </activity>
-
-        <service
-            android:name=".SuperService"
-            android:label="@string/MyServiceLabel" >
-        </service>
-
-        <receiver android:name=".BootBroadcastReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-            </intent-filter>
-        </receiver>
-
-        <activity
-            android:name=".Vis1"
-            android:label="@string/title_activity_vis1" >
-        </activity>
-=======
         </activity>
         
         <activity
@@ -68,7 +43,6 @@
         	<action android:name="android.intent.action.QUICKBOOT_POWERON" />  
     		</intent-filter>  
 		</receiver>
->>>>>>> branch 'master' of https://github.com/peacook94/SelfControl.git
     </application>
 
 </manifest>
