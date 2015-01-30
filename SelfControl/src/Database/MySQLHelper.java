@@ -17,7 +17,7 @@ import java.util.Map;
 import de.dresden.es.inf.Selfcontrol.Util.App;
 import de.dresden.es.inf.Selfcontrol.Util.AppId;
 
-public class SQLHelper extends SQLiteOpenHelper{
+public class MySQLHelper extends SQLiteOpenHelper{
 	
 	private static DateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss");
 	
@@ -34,10 +34,9 @@ public class SQLHelper extends SQLiteOpenHelper{
 	 */
 	
 	//Apps-Table Columns name
-	private static final String KEY_DATE ="date";
-	private static final String KEY_ID = "AppId";
-	
-	private static final String[] COLUMNS = {KEY_ID, KEY_DATE};
+	public static final String KEY_DATE ="date";
+	public static final String KEY_ID = "AppId";	
+	public static final String[] COLUMNS = {KEY_ID, KEY_DATE};
 	
 	/**
 	 * Der Konstruktor der Datenbank
@@ -45,7 +44,7 @@ public class SQLHelper extends SQLiteOpenHelper{
 	 * @param context zu welcher Aktivity gehört die Datenbank?
 	 */
 	
-	public SQLHelper(Context context){
+	public MySQLHelper(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	
