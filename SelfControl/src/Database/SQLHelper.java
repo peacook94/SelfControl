@@ -1,4 +1,4 @@
-package de.dresden.es.inf.Selfcontrol;
+package Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,44 +14,48 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.dresden.es.inf.Selfcontrol.Util.App;
+import de.dresden.es.inf.Selfcontrol.Util.AppId;
+
 public class SQLHelper extends SQLiteOpenHelper{
 	
 	private static DateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss");
 	
 	private static final int DATABASE_VERSION = 1;
-	private static final String DATABASE_NAME = "Apps";
+	private static final String DATABASE_NAME = "apps.db";
 	
 	//Table-name
 	private static final String TABLE_APPS = "apps";
 	
 	/**
-	 * "id" ist ein automatisch vergebener aufsteigend nummerierte Identifier
+	 * "id" ist die AppId
 	 * "date" ist ein Zeitstempel, der aussagt wann entsprechende App gestartet wurde
-	 * "label" Name/Bezeichnugn der App
-	 * "runtime" wie lange lief die App
 	 * 
 	 */
 	
 	//Apps-Table Columns name
-	private static final String KEY_ID = "id";
 	private static final String KEY_DATE ="date";
-	private static final String KEY_LABEL ="label";
-	private static final String KEY_RUNTIME ="runtime";
+	private static final String KEY_ID = "AppId";
 	
-	private static final String[] COLUMNS = {KEY_ID, KEY_DATE, KEY_LABEL, KEY_RUNTIME};
+	private static final String[] COLUMNS = {KEY_ID, KEY_DATE};
+	
+	/**
+	 * Der Konstruktor der Datenbank
+	 * 
+	 * @param context zu welcher Aktivity gehört die Datenbank?
+	 */
 	
 	public SQLHelper(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
+	
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// Create table "apps"
 		String CREATE_APPS_TABLE = "CREATE TABLE apps (" +
-		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-				"date DATE" +
-				"label TEXT, " +
-				"runtime LONG";
+				"date DATE PRIMARY KEY" +
+				"AppId AppId, ";
 		
 		db.execSQL(CREATE_APPS_TABLE);
 		
@@ -60,24 +64,30 @@ public class SQLHelper extends SQLiteOpenHelper{
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older books table if existed
-        db.execSQL("DROP TABLE IF EXISTS apps");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_APPS);
  
         // create fresh books table
         this.onCreate(db);
 		
 	}
 	
-	public void addApp(Date date,String appName, long runtime){
-		Log.d("adding App: ", appName);
+	
+	/**
+	 * Hinzufügen einer App zur Datenbank -> Generierung eines neuen Datenbankeintrags
+	 * 
+	 * @param app bezeichnet den gefüllten App-Container
+	 */
+	
+	public void addApp(App app){
+		Log.d("adding App: ", app.getId().toString());
 		
 		// 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
         
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
-        values.put(KEY_DATE, date.toString());
-        values.put(KEY_LABEL, appName);
-        values.put(KEY_RUNTIME, String.valueOf(runtime));
+        values.put(KEY_DATE, app.getStartingTimstamp().toString());
+        values.put(KEY_ID, app.getId().toString());
         
         //3. Insert
         db.insert(TABLE_APPS, null, values);
@@ -89,44 +99,27 @@ public class SQLHelper extends SQLiteOpenHelper{
 	/**
 	 * Gibt eine Map zurück, in der zu jedem Zeitstempel die entsprechende App eingetragen ist.
 	 * 
-	 * @param appName
+	 * @param appName einer oder mehrere appBezeichnungen
 	 * @return
-	 * @throws ParseException
+	 * @throws ParseException wenn das eingetragene Datum von String zu Date konvertiert wird ein Fehler auftritt
 	 */
 	
-	public Map<Date, String> getAppWithDate(String[] appName) throws ParseException{
+	public Map<Date, String> getAppWithDates(AppId appId) throws ParseException{
 		Map<Date, String> temp = new HashMap<Date, String>();
 		
 		// 1. get reference to readable DB
 	    SQLiteDatabase db = this.getReadableDatabase();
 	    
-	 // 2. build query
+	    // 2. build query
 	    Cursor cursor = 
-	    		db.query(TABLE_APPS, COLUMNS,"label=?",  appName, null, null, null);
-	    
+	    		db.query(TABLE_APPS, COLUMNS,"AppId=?",  new String[] {appId.toString()}, null, null, null);
+	    	    	    
 	   //3. search result
-	    while(!cursor.isAfterLast()){	    	
-	    	temp.put(sdf.parse(cursor.getString(1)), cursor.getString(2)); //date un label in die temp-Map schreiben, Zeiel für Zeile 	    	
-	    	cursor.moveToNext();
+	    while(cursor.moveToNext()){	
+	    	temp.put(sdf.parse(cursor.getString(0)), cursor.getString(1)); //date und AppId in die temp-Map schreiben, Zeiel für Zeile 	    	
 	    }
 	    
 	    return temp;
-	}
-	
-//	public long getRuntime(int id){
-//		
-//	}
-//	
-//	public Map<Date, Long> getAllRuntimes(String AppName){
-//		
-//	}
-	
-	public void update(String appName){
-		
-	}
-	
-	public void delete(String appName){
-		
 	}
 
 }
