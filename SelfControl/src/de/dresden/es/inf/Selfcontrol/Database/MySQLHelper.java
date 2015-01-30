@@ -52,9 +52,9 @@ public class MySQLHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// Create table "apps"
-		String CREATE_APPS_TABLE = "CREATE TABLE apps (" +
-				"date DATE PRIMARY KEY" +
-				"AppId AppId, ";
+		String CREATE_APPS_TABLE = "CREATE TABLE"+ TABLE_APPS+ "(" + KEY_DATE +
+				" String PRIMARY KEY, " + 
+				KEY_ID + "String not null);";
 		
 		db.execSQL(CREATE_APPS_TABLE);
 		

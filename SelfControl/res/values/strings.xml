@@ -12,6 +12,8 @@
     <string name="startServiceButton">Service starten</string>
     <string name="getServiceData">Service Runtime abfragen</string>
     <string name="lockStatusString">lockStatus</string>
+    <string name="setDummyData">DummyDaten eintragen</string>
+    <string name="getDummyData">DummyDaten abholen</string>
 
     <!-- Strings der zweiten Activity!: -->
 

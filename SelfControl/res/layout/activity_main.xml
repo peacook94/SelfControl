@@ -38,6 +38,18 @@
         android:id="@+id/lockStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/lockStatusString"/>    
+        android:text="@string/lockStatusString"/>
+    
+    <Button
+        android:id="@+id/setDummyData" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/setDummyData"/>
+    
+    <Button
+        android:id="@+id/getDummyData" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/getDummyData"/>
 
 </LinearLayout>

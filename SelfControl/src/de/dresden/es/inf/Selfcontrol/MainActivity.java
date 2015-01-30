@@ -1,13 +1,19 @@
 package de.dresden.es.inf.Selfcontrol;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.io.*;
 
+import de.dresden.es.inf.Selfcontrol.Database.AppsDataSource;
+import de.dresden.es.inf.Selfcontrol.Util.App;
+import de.dresden.es.inf.Selfcontrol.Util.AppId;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -43,6 +49,8 @@ public class MainActivity extends Activity implements OnTouchListener{
 	
 	int counter = 0;
 	String status = "";
+	
+	private AppsDataSource database;
 	
 	
 	private SuperService myServiceBinder;
@@ -182,6 +190,9 @@ public class MainActivity extends Activity implements OnTouchListener{
 					
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        database = new AppsDataSource(this);
+        
 
         //den gesamten Bilschirm touchsensitiv machen
         LinearLayout mLinearLayoutMain = (LinearLayout) findViewById(R.id.layout_main);
@@ -208,6 +219,41 @@ public class MainActivity extends Activity implements OnTouchListener{
         		startActivity(nextScreen);
         	}
         });
+        
+        Button dummyDaten = (Button) findViewById(R.id.setDummyData);
+        dummyDaten.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				App temp = new App(Calendar.getInstance().getTime(), AppId.BROWSER);
+				
+				database.open();
+				database.addApp(temp);
+				database.close();
+				
+			}
+		});
+        
+        Button getdummyDaten = (Button) findViewById(R.id.getDummyData);
+        getdummyDaten.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Map<Date, AppId> temp = new HashMap<Date, AppId>();
+				
+				database.open();
+				try {
+					temp = database.getAppWithDates(AppId.BROWSER);
+					if(temp != null)
+						Toast.makeText(getApplicationContext(), "Datenbankeintrag gefunden", Toast.LENGTH_SHORT);
+					
+				} catch (ParseException e) {
+					Toast.makeText(getApplicationContext(),"BROWSER not found", Toast.LENGTH_SHORT).show();
+				}
+				
+				database.close();
+			}
+		});
         
         Button switchButton2 = (Button) findViewById(R.id.mainButton2);
         switchButton2.setOnClickListener(new View.OnClickListener() {

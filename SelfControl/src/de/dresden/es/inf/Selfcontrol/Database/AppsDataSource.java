@@ -55,10 +55,12 @@ public class AppsDataSource {
 		Log.d("adding App: ", app.getId().toString());
 
 		ContentValues values = new ContentValues();
-		values.put(MySQLHelper.KEY_DATE, app.getStartingTimstamp().toString());
+		values.put(MySQLHelper.KEY_DATE, sdf.format(app.getStartingTimstamp()));
 		values.put(MySQLHelper.KEY_ID, app.getId().toString());
+		
+		database.execSQL("INSERT INTO "+MySQLHelper.TABLE_APPS+" VALUES ("+sdf.format(app.getStartingTimstamp())+","+app.getId().toString());
         
-		database.insert(MySQLHelper.TABLE_APPS, null, values);
+//		database.insert(MySQLHelper.TABLE_APPS, null, values);
 	}
 	
 	/**
@@ -74,11 +76,16 @@ public class AppsDataSource {
 	    
 	    // 2. build query
 	    Cursor cursor = 
-	    		database.query(MySQLHelper.TABLE_APPS, allColumns,"AppId=?",  new String[] {appId.toString()}, null, null, null);
+	    		database.query(MySQLHelper.TABLE_APPS, allColumns, MySQLHelper.KEY_ID+" = " + appId.toString(),  null, null, null, null);
+	    
+	    
+	    //Cursor cursor = database.rawQuery("SELECT * FROM apps WHERE id=?", new String[]{appId.toString()});
 	    	    	    
 	   //3. search result
-	    while(cursor.moveToNext()){	
-	    	temp.put(sdf.parse(cursor.getString(0)), AppId.valueOf(cursor.getString(1))); //date und AppId in die temp-Map schreiben, Zeiel für Zeile 	    	
+	    cursor.moveToFirst();
+	    while(!cursor.isAfterLast()){	
+	    	temp.put(sdf.parse(cursor.getString(0)), AppId.parseString(Integer.valueOf(cursor.getString(1)))); //date und AppId in die temp-Map schreiben, Zeiel für Zeile
+	    	cursor.moveToNext();
 	    }
 	    cursor.close();
 	    

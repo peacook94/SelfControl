@@ -15,7 +15,7 @@ public class App {
 	AppId id;
 	Date startingTimstamp;
 	
-	public App(Date startingTimestamp, String label, AppId id){
+	public App(Date startingTimestamp, AppId id){
 		this.id = id;
 		this.startingTimstamp = startingTimestamp;
 		
