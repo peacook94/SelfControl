@@ -8,7 +8,11 @@ import android.content.Intent;
 public class BootBroadcastReceiver extends BroadcastReceiver{
 	@Override
     public void onReceive(Context context, Intent intent) {
-        Intent startServiceIntent = new Intent(context, SuperService.class);
-        context.startService(startServiceIntent);
+        Intent i = new Intent("de.dresden.es.inf.Selfcontrol.SuperService");
+		i.setClass(context, SuperService.class);
+		context.startService(i);
+        
+//		Intent startServiceIntent = new Intent(context, SuperService.class);
+//        context.startService(startServiceIntent);
     }
 }

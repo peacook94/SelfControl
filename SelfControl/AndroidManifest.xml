@@ -39,8 +39,8 @@
         
         <receiver android:name="de.dresden.es.inf.Selfcontrol.BroadcastReceiver.BootBroadcastReceiver">  
     		<intent-filter>  
-        	<action android:name="android.intent.action.BOOT_COMPLETED" />
-        	<action android:name="android.intent.action.QUICKBOOT_POWERON" />  
+        		<action android:name="android.intent.action.BOOT_COMPLETED" />
+        		<action android:name="android.intent.action.QUICKBOOT_POWERON" />  
     		</intent-filter>  
 		</receiver>
     </application>
