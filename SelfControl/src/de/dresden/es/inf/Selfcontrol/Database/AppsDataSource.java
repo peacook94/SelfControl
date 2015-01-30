@@ -1,4 +1,4 @@
-package Database;
+package de.dresden.es.inf.Selfcontrol.Database;
 
 import java.text.DateFormat;
 import java.text.ParseException;
