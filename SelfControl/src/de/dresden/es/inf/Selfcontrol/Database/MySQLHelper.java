@@ -34,8 +34,8 @@ public class MySQLHelper extends SQLiteOpenHelper{
 	 */
 	
 	//Apps-Table Columns name
-	public static final String KEY_DATE ="date";
-	public static final String KEY_ID = "AppId";	
+	public static final String KEY_DATE ="'date'";
+	public static final String KEY_ID = "'aqppid'";	
 	public static final String[] COLUMNS = {KEY_ID, KEY_DATE};
 	
 	/**
@@ -52,9 +52,9 @@ public class MySQLHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// Create table "apps"
-		String CREATE_APPS_TABLE = "CREATE TABLE"+ TABLE_APPS+ "(" + KEY_DATE +
-				" String PRIMARY KEY, " + 
-				KEY_ID + "String not null);";
+		String CREATE_APPS_TABLE = "CREATE TABLE "+ TABLE_APPS+ "(" + KEY_DATE +
+				" Text PRIMARY KEY, " + 
+				KEY_ID + "Text not null);";
 		
 		db.execSQL(CREATE_APPS_TABLE);
 		

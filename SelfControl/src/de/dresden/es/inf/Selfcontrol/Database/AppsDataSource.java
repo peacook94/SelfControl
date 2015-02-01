@@ -58,9 +58,17 @@ public class AppsDataSource {
 		values.put(MySQLHelper.KEY_DATE, sdf.format(app.getStartingTimstamp()));
 		values.put(MySQLHelper.KEY_ID, app.getId().toString());
 		
-		database.execSQL("INSERT INTO "+MySQLHelper.TABLE_APPS+" VALUES ("+sdf.format(app.getStartingTimstamp())+","+app.getId().toString());
+		//database.execSQL("INSERT INTO "+MySQLHelper.TABLE_APPS+" VALUES ("+sdf.format(app.getStartingTimstamp()).toString()+","+app.getId().toString());
         
-//		database.insert(MySQLHelper.TABLE_APPS, null, values);
+		long newRowId = database.insert(MySQLHelper.TABLE_APPS, null, values);
+		
+//		long newRowId;
+//		newRowId = db.insert(
+//		         FeedEntry.TABLE_NAME,
+//		         FeedEntry.COLUMN_NAME_NULLABLE,
+//		         values);
+		
+		//database.insert(MySQLHelper.TABLE_APPS, null, values);
 	}
 	
 	/**
@@ -76,7 +84,7 @@ public class AppsDataSource {
 	    
 	    // 2. build query
 	    Cursor cursor = 
-	    		database.query(MySQLHelper.TABLE_APPS, allColumns, MySQLHelper.KEY_ID+" = " + appId.toString(),  null, null, null, null);
+	    		database.query(MySQLHelper.TABLE_APPS, null, MySQLHelper.KEY_ID+" = '" + appId.toString()+"'",  null, null, null, null);
 	    
 	    
 	    //Cursor cursor = database.rawQuery("SELECT * FROM apps WHERE id=?", new String[]{appId.toString()});

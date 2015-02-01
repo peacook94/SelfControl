@@ -150,7 +150,9 @@ public class MainActivity extends Activity implements OnTouchListener{
 	
 	@Override
 	public void onResume(){
-		Log.d("activity", "onResume");
+		Log.d("activity", ""+ "onResume");
+		
+		database.open();
 //	    if (myServiceBinder == null) {
 //	        doBindService();
 //	    }
@@ -160,6 +162,8 @@ public class MainActivity extends Activity implements OnTouchListener{
 	@Override
 	protected void onPause() {
 	    //FIXME put back
+		
+		database.close();
 
 	    Log.d("activity", "onPause");
 //	    if (myServiceBinder != null) {
@@ -192,6 +196,7 @@ public class MainActivity extends Activity implements OnTouchListener{
         setContentView(R.layout.activity_main);
         
         database = new AppsDataSource(this);
+        database.open();
         
 
         //den gesamten Bilschirm touchsensitiv machen
@@ -226,10 +231,9 @@ public class MainActivity extends Activity implements OnTouchListener{
 			@Override
 			public void onClick(View v) {
 				App temp = new App(Calendar.getInstance().getTime(), AppId.BROWSER);
-				
-				database.open();
+								
 				database.addApp(temp);
-				database.close();
+				
 				
 			}
 		});
@@ -241,7 +245,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 			public void onClick(View v) {
 				Map<Date, AppId> temp = new HashMap<Date, AppId>();
 				
-				database.open();
+				
 				try {
 					temp = database.getAppWithDates(AppId.BROWSER);
 					if(temp != null)
@@ -251,7 +255,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 					Toast.makeText(getApplicationContext(),"BROWSER not found", Toast.LENGTH_SHORT).show();
 				}
 				
-				database.close();
+				
 			}
 		});
         
