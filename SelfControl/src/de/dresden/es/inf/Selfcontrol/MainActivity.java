@@ -52,6 +52,10 @@ public class MainActivity extends Activity implements OnTouchListener{
 	
 	private AppsDataSource database;
 	
+	public AppsDataSource getDatabase(){
+		return database;
+	}
+	
 	
 	private SuperService myServiceBinder;
 	protected ServiceConnection mServerConn = new ServiceConnection() {
@@ -249,8 +253,6 @@ public class MainActivity extends Activity implements OnTouchListener{
 				try {
 					temp = database.getAppWithDates(AppId.BROWSER);
 					Toast.makeText(getApplicationContext(), String.valueOf(temp.size()), Toast.LENGTH_SHORT).show();
-					
-					
 					
 					for(Date date : temp.keySet()){
 						Toast.makeText(getApplicationContext(), date.toString(), Toast.LENGTH_SHORT).show();
