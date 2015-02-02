@@ -36,7 +36,7 @@ public class AppsDataSource {
 	private String[] allColumns = MySQLHelper.COLUMNS;
 	
 	public AppsDataSource(Context context){
-		dbHelper = new MySQLHelper(context);
+		dbHelper = MySQLHelper.getHelper(context);
 	}
 	
 	public void open() throws SQLException {

@@ -19,7 +19,7 @@ import de.dresden.es.inf.Selfcontrol.Util.AppId;
 
 public class MySQLHelper extends SQLiteOpenHelper{
 	
-//	private static DateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss");
+    private static MySQLHelper instance;
 	
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "apps.db";
@@ -44,7 +44,16 @@ public class MySQLHelper extends SQLiteOpenHelper{
 	 * @param context zu welcher Aktivity gehört die Datenbank?
 	 */
 	
-	public MySQLHelper(Context context){
+	public static synchronized MySQLHelper getHelper(Context context){
+		if( instance == null){
+			instance = new MySQLHelper(context);
+			
+		}
+		
+		return instance;
+	}
+	
+	private MySQLHelper(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	
