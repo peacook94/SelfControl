@@ -39,9 +39,10 @@ public class MySQLHelper extends SQLiteOpenHelper{
 	public static final String[] COLUMNS = {KEY_ID, KEY_DATE};
 	
 	/**
-	 * Der Konstruktor der Datenbank
+	 * Diese Klasse dient dazu die Instance der Datenbank zurückzugeben. SINGLETON!!
 	 * 
-	 * @param context zu welcher Aktivity gehört die Datenbank?
+	 * @param context
+	 * @return
 	 */
 	
 	public static synchronized MySQLHelper getHelper(Context context){
@@ -52,6 +53,12 @@ public class MySQLHelper extends SQLiteOpenHelper{
 		
 		return instance;
 	}
+	
+	/**
+	 * Der Konstruktor der Datenbank
+	 * 
+	 * @param context zu welcher Aktivity gehört die Datenbank?
+	 */
 	
 	private MySQLHelper(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
