@@ -152,7 +152,7 @@ public class SekActivity extends Activity{
 		/*---------->drawGraph<--------------*/
 		//was muss ich hier einfügen?!?!??!
 		//drawGraph(5);
-		AppsDataSource tmpAppsDataSource = new AppsDataSource(null);
+		AppsDataSource tmpAppsDataSource = new AppsDataSource(this);
 		tmpAppsDataSource.open();
 		for(int lc=0;lc<3;lc++)
 		{
