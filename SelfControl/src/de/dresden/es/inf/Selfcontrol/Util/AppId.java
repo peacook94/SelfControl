@@ -59,4 +59,14 @@ public enum AppId {
 		else return null;
 			
 	}
+	
+	public static AppId ident(String type){
+		if(type == "BROWSER")
+			return BROWSER;
+		else if(type == "PHONEUNLOCKED")
+			return PHONEUNLOCKED;
+		else if(type == "HANGOUTS")
+			return HANGOUTS;
+		else return null;
+	}
 }

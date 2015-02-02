@@ -232,8 +232,8 @@ public class MainActivity extends Activity implements OnTouchListener{
 			public void onClick(View v) {
 				App temp = new App(Calendar.getInstance().getTime(), AppId.BROWSER);
 								
-				database.addApp(temp);
-				
+				String errorCode = database.addApp(temp);
+				Toast.makeText(getApplicationContext(), errorCode, Toast.LENGTH_SHORT).show();
 				
 			}
 		});
@@ -248,6 +248,15 @@ public class MainActivity extends Activity implements OnTouchListener{
 				
 				try {
 					temp = database.getAppWithDates(AppId.BROWSER);
+					Toast.makeText(getApplicationContext(), String.valueOf(temp.size()), Toast.LENGTH_SHORT).show();
+					
+					
+					
+					for(Date date : temp.keySet()){
+						Toast.makeText(getApplicationContext(), date.toString(), Toast.LENGTH_SHORT).show();
+					}
+					
+					
 					if(temp != null)
 						Toast.makeText(getApplicationContext(), "Datenbankeintrag gefunden", Toast.LENGTH_SHORT);
 					
