@@ -35,7 +35,9 @@ public class MySQLHelper extends SQLiteOpenHelper{
 	
 	//Apps-Table Columns name
 	public static final String KEY_DATE ="date";
-	public static final String KEY_ID = "appId";	
+	public static final String KEY_ID = "appId";
+	public static final String KEY_WIFISTATUS = "wifistate";
+	public static final String KEY_LOCKSTATE = "lockstate";
 	public static final String[] COLUMNS = {KEY_ID, KEY_DATE};
 	
 	/**
@@ -68,9 +70,11 @@ public class MySQLHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// Create table "apps"
-		String CREATE_APPS_TABLE = "CREATE TABLE "+ TABLE_APPS+ "('" + KEY_DATE +
-				"' Text, '" + 
-				KEY_ID + "' Text);";
+		String CREATE_APPS_TABLE = "CREATE TABLE "+ TABLE_APPS+ "('"
+		      + KEY_DATE + 		"' Text, '"
+			   +KEY_ID   + 		"' Text, '"
+			   +KEY_WIFISTATUS+	"' INTEGER, '"
+			   +KEY_LOCKSTATE+	"' INTEGER);";
 		
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_APPS);
 		db.execSQL(CREATE_APPS_TABLE);

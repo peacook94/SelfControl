@@ -14,6 +14,8 @@ public class App {
 
 	AppId id;
 	Date startingTimstamp;
+	int lockstate;
+	int wifistate;
 	
 	public App(Date startingTimestamp, AppId id){
 		this.id = id;
@@ -31,5 +33,21 @@ public class App {
 
 	public void setStartingTimstamp(Date startingTimstamp) {
 		this.startingTimstamp = startingTimstamp;
+	}
+	
+	public void setLockstate(int lockstate){
+		this.lockstate = lockstate;
+	}
+	
+	public void setWifistate(int wifistate){
+		this.wifistate = wifistate;
+	}
+	
+	public int getWifistate(){
+		return wifistate;
+	}
+	
+	public int getLockstate(){
+		return lockstate;
 	}
 }

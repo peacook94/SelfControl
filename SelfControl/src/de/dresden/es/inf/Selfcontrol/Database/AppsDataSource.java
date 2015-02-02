@@ -59,6 +59,8 @@ public class AppsDataSource {
 		ContentValues values = new ContentValues();
 		values.put(MySQLHelper.KEY_DATE, sdf.format(app.getStartingTimstamp()));
 		values.put(MySQLHelper.KEY_ID, app.getId().toString());
+		values.put(MySQLHelper.KEY_WIFISTATUS, app.getWifistate());
+		values.put(MySQLHelper.KEY_LOCKSTATE, app.getWifistate());
         
 		long newRowId = database.insert(MySQLHelper.TABLE_APPS, null, values);
 		
@@ -72,6 +74,12 @@ public class AppsDataSource {
 	 * @return
 	 * @throws ParseException wenn das eingetragene Datum von String zu Date konvertiert wird ein Fehler auftritt
 	 */
+	
+	public Cursor getData(AppId appId){
+		
+		Cursor cursor = database.rawQuery("SELECT * FROM "+MySQLHelper.TABLE_APPS+" WHERE appId=?", new String[] {appId.toString()});
+		return cursor;
+	}
 	
 	public Map<Date, AppId> getAppWithDates(AppId appId) throws ParseException{
 		Map<Date, AppId> temp = new HashMap<Date, AppId>();
