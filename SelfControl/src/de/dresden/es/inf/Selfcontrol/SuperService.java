@@ -144,6 +144,8 @@ public class SuperService extends Service{
 	
 	public void writeToDB(String appName){
 		
+		database = new AppsDataSource(this);
+		
 		App temp = null;
 		
 		if(appName.equals("com.android.chrome")){
@@ -156,11 +158,9 @@ public class SuperService extends Service{
 		
 		if(temp != null){
 			
-//			database.open();
-//			String errorCode = database.addApp(temp);
-//			Toast.makeText(getApplicationContext(), "DBServiceError: " + errorCode, Toast.LENGTH_SHORT).show();
-		
-			
+			database.open();
+			String errorCode = database.addApp(temp);
+			//Toast.makeText(getApplicationContext(), "DBServiceError: " + errorCode, Toast.LENGTH_SHORT).show();
 			
 		}
 		
