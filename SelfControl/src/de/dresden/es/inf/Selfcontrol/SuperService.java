@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import de.dresden.es.inf.Selfcontrol.Database.AppsDataSource;
+import de.dresden.es.inf.Selfcontrol.Util.App;
+import de.dresden.es.inf.Selfcontrol.Util.AppId;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.KeyguardManager;
@@ -37,6 +40,7 @@ public class SuperService extends Service{
 	
 	String status = "";
 	int statusCounter = 0;
+	private AppsDataSource database;
 	
 	private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	private final IBinder mBinder = new MyBinder();
@@ -138,6 +142,30 @@ public class SuperService extends Service{
 		return Service.START_STICKY;
 	}
 	
+	public void writeToDB(String appName){
+		
+		database = new AppsDataSource(this);
+		
+		App temp = null;
+		
+		if(appName.equals("com.android.chrome")){
+			temp = new App(Calendar.getInstance().getTime(), AppId.BROWSER);
+		}
+		
+		if(appName.equals("com.google.android.talk")){
+			temp = new App(Calendar.getInstance().getTime(), AppId.HANGOUTS);
+		}
+		
+		if(temp != null){
+			
+			database.open();
+			String errorCode = database.addApp(temp);
+			//Toast.makeText(getApplicationContext(), "DBServiceError: " + errorCode, Toast.LENGTH_SHORT).show();
+			
+		}
+		
+	}
+	
 	public String getLockStatus(){
 		
 		KeyguardManager myKGM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
@@ -179,6 +207,9 @@ public class SuperService extends Service{
 
 				if(runningTasks.get(i).topActivity.getPackageName().equals(appFilter.get(j))){
 					Toast.makeText(this, appFilter.get(j) + " läuft", Toast.LENGTH_SHORT).show();
+					
+					//DB-Eintrag
+					writeToDB(appFilter.get(j));
 					
 				}
 			}

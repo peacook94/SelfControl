@@ -52,6 +52,10 @@ public class MainActivity extends Activity implements OnTouchListener{
 	
 	private AppsDataSource database;
 	
+	public AppsDataSource getDatabase(){
+		return database;
+	}
+	
 	
 	private SuperService myServiceBinder;
 	protected ServiceConnection mServerConn = new ServiceConnection() {
@@ -150,7 +154,9 @@ public class MainActivity extends Activity implements OnTouchListener{
 	
 	@Override
 	public void onResume(){
-		Log.d("activity", "onResume");
+		Log.d("activity", ""+ "onResume");
+		
+		database.open();
 //	    if (myServiceBinder == null) {
 //	        doBindService();
 //	    }
@@ -160,6 +166,8 @@ public class MainActivity extends Activity implements OnTouchListener{
 	@Override
 	protected void onPause() {
 	    //FIXME put back
+		
+		database.close();
 
 	    Log.d("activity", "onPause");
 //	    if (myServiceBinder != null) {
@@ -192,6 +200,7 @@ public class MainActivity extends Activity implements OnTouchListener{
         setContentView(R.layout.activity_main);
         
         database = new AppsDataSource(this);
+        database.open();
         
 
         //den gesamten Bilschirm touchsensitiv machen
@@ -226,10 +235,9 @@ public class MainActivity extends Activity implements OnTouchListener{
 			@Override
 			public void onClick(View v) {
 				App temp = new App(Calendar.getInstance().getTime(), AppId.BROWSER);
-				
-				database.open();
-				database.addApp(temp);
-				database.close();
+								
+				String errorCode = database.addApp(temp);
+				Toast.makeText(getApplicationContext(), errorCode, Toast.LENGTH_SHORT).show();
 				
 			}
 		});
@@ -241,9 +249,16 @@ public class MainActivity extends Activity implements OnTouchListener{
 			public void onClick(View v) {
 				Map<Date, AppId> temp = new HashMap<Date, AppId>();
 				
-				database.open();
+				
 				try {
 					temp = database.getAppWithDates(AppId.BROWSER);
+					Toast.makeText(getApplicationContext(), String.valueOf(temp.size()), Toast.LENGTH_SHORT).show();
+					
+					for(Date date : temp.keySet()){
+						Toast.makeText(getApplicationContext(), date.toString(), Toast.LENGTH_SHORT).show();
+					}
+					
+					
 					if(temp != null)
 						Toast.makeText(getApplicationContext(), "Datenbankeintrag gefunden", Toast.LENGTH_SHORT);
 					
@@ -251,7 +266,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 					Toast.makeText(getApplicationContext(),"BROWSER not found", Toast.LENGTH_SHORT).show();
 				}
 				
-				database.close();
+				
 			}
 		});
         

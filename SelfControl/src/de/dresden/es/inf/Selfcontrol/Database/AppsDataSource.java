@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.dresden.es.inf.Selfcontrol.MainActivity;
 import de.dresden.es.inf.Selfcontrol.Util.App;
 import de.dresden.es.inf.Selfcontrol.Util.AppId;
 import android.content.ContentValues;
@@ -15,6 +16,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 
 /**
@@ -34,7 +36,7 @@ public class AppsDataSource {
 	private String[] allColumns = MySQLHelper.COLUMNS;
 	
 	public AppsDataSource(Context context){
-		dbHelper = new MySQLHelper(context);
+		dbHelper = MySQLHelper.getHelper(context);
 	}
 	
 	public void open() throws SQLException {
@@ -51,16 +53,18 @@ public class AppsDataSource {
 	 * @param app bezeichnet den gefüllten App-Container
 	 */
 	
-	public void addApp(App app){
+	public String addApp(App app){
 		Log.d("adding App: ", app.getId().toString());
 
 		ContentValues values = new ContentValues();
 		values.put(MySQLHelper.KEY_DATE, sdf.format(app.getStartingTimstamp()));
 		values.put(MySQLHelper.KEY_ID, app.getId().toString());
-		
-		database.execSQL("INSERT INTO "+MySQLHelper.TABLE_APPS+" VALUES ("+sdf.format(app.getStartingTimstamp())+","+app.getId().toString());
+		values.put(MySQLHelper.KEY_WIFISTATUS, app.getWifistate());
+		values.put(MySQLHelper.KEY_LOCKSTATE, app.getWifistate());
         
-//		database.insert(MySQLHelper.TABLE_APPS, null, values);
+		long newRowId = database.insert(MySQLHelper.TABLE_APPS, null, values);
+		
+		return String.valueOf(newRowId);
 	}
 	
 	/**
@@ -71,22 +75,23 @@ public class AppsDataSource {
 	 * @throws ParseException wenn das eingetragene Datum von String zu Date konvertiert wird ein Fehler auftritt
 	 */
 	
+	public Cursor getData(AppId appId){
+		
+		Cursor cursor = database.rawQuery("SELECT * FROM "+MySQLHelper.TABLE_APPS+" WHERE appId=?", new String[] {appId.toString()});
+		return cursor;
+	}
+	
 	public Map<Date, AppId> getAppWithDates(AppId appId) throws ParseException{
 		Map<Date, AppId> temp = new HashMap<Date, AppId>();
 	    
-	    // 2. build query
-	    Cursor cursor = 
-	    		database.query(MySQLHelper.TABLE_APPS, allColumns, MySQLHelper.KEY_ID+" = " + appId.toString(),  null, null, null, null);
-	    
-	    
-	    //Cursor cursor = database.rawQuery("SELECT * FROM apps WHERE id=?", new String[]{appId.toString()});
+	   
+		Cursor cursor = database.rawQuery("SELECT * FROM "+MySQLHelper.TABLE_APPS+" WHERE appId=?", new String[] {appId.toString()});
 	    	    	    
-	   //3. search result
-	    cursor.moveToFirst();
-	    while(!cursor.isAfterLast()){	
-	    	temp.put(sdf.parse(cursor.getString(0)), AppId.parseString(Integer.valueOf(cursor.getString(1)))); //date und AppId in die temp-Map schreiben, Zeiel für Zeile
-	    	cursor.moveToNext();
+	   
+	    while(cursor.moveToNext()){
+	    	temp.put(sdf.parse(cursor.getString(0)), AppId.ident(cursor.getString(1)));
 	    }
+	   
 	    cursor.close();
 	    
 	    return temp;
