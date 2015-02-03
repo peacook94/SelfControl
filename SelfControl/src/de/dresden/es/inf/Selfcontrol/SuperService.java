@@ -18,6 +18,7 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,6 +44,8 @@ public class SuperService extends Service{
 	private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	private final IBinder mBinder = new MyBinder();
 	private Messenger outMessenger;
+	
+	private WifiManager wifiManager;
 	
 	GregorianCalendar start;
 	
@@ -78,6 +81,8 @@ public class SuperService extends Service{
 	public void onCreate(){
 		super.onCreate();
 		
+		
+		wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 		start = new GregorianCalendar();
 		//startingDate = Calendar.getInstance().getTime();
 
@@ -147,13 +152,13 @@ public class SuperService extends Service{
 		if(appName.equals("com.android.chrome")){
 			temp = new App(Calendar.getInstance().getTime(), AppId.BROWSER);
 			temp.setLockstate(getLockStatus());
-			temp.setWifistate(0);
+			temp.setWifistate(getWifiStatus());
 		}
 		
 		if(appName.equals("com.google.android.talk")){
 			temp = new App(Calendar.getInstance().getTime(), AppId.HANGOUTS);
 			temp.setLockstate(getLockStatus());
-			temp.setWifistate(0);
+			temp.setWifistate(getWifiStatus());
 		}
 		
 		if(temp != null){
@@ -164,6 +169,15 @@ public class SuperService extends Service{
 			
 		}
 		
+	}
+	
+	public int getWifiStatus(){
+		
+		if(wifiManager.isWifiEnabled()){
+			return 1;
+		}
+		
+		return 0;
 	}
 	
 	public int getLockStatus(){
