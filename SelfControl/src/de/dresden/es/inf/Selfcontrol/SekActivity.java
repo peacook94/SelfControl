@@ -109,10 +109,32 @@ public class SekActivity extends Activity{
 //		LineGraphSeries<DataPoint> series_PHONEUNLOCKED = new LineGraphSeries<DataPoint>(data_PHONEUNLOCKED);
 //		LineGraphSeries<DataPoint> series_BROWSER = new LineGraphSeries<DataPoint>(data_PHONEUNLOCKED);
 //		LineGraphSeries<DataPoint> series_HANGOUTS = new LineGraphSeries<DataPoint>(data_PHONEUNLOCKED);
+		String seriesTitle;
+		switch (myAppId){
+		case PHONEUNLOCKED:
+			seriesTitle="Gesamtzeit";	
+		break;
+		case BROWSER:
+			seriesTitle="Browser";
+		break;
+		case HANGOUTS:
+			seriesTitle="Hangouts?";
+		break;
+		default:
+			seriesTitle="error";
+			break;
+		}
+		series.setTitle(seriesTitle);
 		
-		series.setTitle(myAppId.toString(myAppId));
+		switch (myAppId){
+		case PHONEUNLOCKED:
+			gView.addSeries(series);	
+			break;
+		default:
+			gView.getSecondScale().addSeries(series);
+			break;
+		}
 		
-		gView.addSeries(series);
 //		gView.addSeries(series_PHONEUNLOCKED);
 //		gView.addSeries(series_BROWSER);
 //		gView.addSeries(series_HANGOUTS);
