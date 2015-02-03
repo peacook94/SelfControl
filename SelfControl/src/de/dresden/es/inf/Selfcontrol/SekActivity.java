@@ -50,8 +50,11 @@ public class SekActivity extends Activity{
 //	            break;
 //	    }
 //	}
-//	
-	public void drawGraph(Map<Date, AppId> myMap, AppId myAppId){
+	
+//	public void drawGraph()
+	public void drawGraph(Map<Date, AppId> myMap, AppId myAppId)
+	{
+		
 		//die zeit im Minuten!
 //		float t_PHONEUNLOCKED[]=new float[24];
 //		float t_BROWSER[]=new float[24];
@@ -69,8 +72,11 @@ public class SekActivity extends Activity{
 		{
 			Date tmpDate =iter.next();
 			int dateHour = tmpDate.getHours();
-			time[dateHour]+=5*sec;
-//			AppId id = myMap.get(tmpDate);
+			if(tmpDate.getDay()==new Date().getDay())
+			{
+				time[dateHour]+=5*sec;
+			}
+			AppId id = myMap.get(tmpDate);
 //			switch(id){
 //			case PHONEUNLOCKED:
 //				t_PHONEUNLOCKED[dateHour]+=5*sec;
@@ -110,7 +116,8 @@ public class SekActivity extends Activity{
 //		LineGraphSeries<DataPoint> series_BROWSER = new LineGraphSeries<DataPoint>(data_PHONEUNLOCKED);
 //		LineGraphSeries<DataPoint> series_HANGOUTS = new LineGraphSeries<DataPoint>(data_PHONEUNLOCKED);
 		String seriesTitle;
-		switch (myAppId){
+		switch (myAppId)
+		{
 		case PHONEUNLOCKED:
 			seriesTitle="Gesamtzeit";	
 		break;
@@ -126,7 +133,8 @@ public class SekActivity extends Activity{
 		}
 		series.setTitle(seriesTitle);
 		
-		switch (myAppId){
+		switch (myAppId)
+		{
 		case PHONEUNLOCKED:
 			gView.addSeries(series);	
 			break;
@@ -135,6 +143,8 @@ public class SekActivity extends Activity{
 			break;
 		}
 		
+		gView.getGridLabelRenderer().setHorizontalAxisTitle("min/h");
+		gView.getGridLabelRenderer().setVerticalAxisTitle("time");
 //		gView.addSeries(series_PHONEUNLOCKED);
 //		gView.addSeries(series_BROWSER);
 //		gView.addSeries(series_HANGOUTS);
@@ -174,6 +184,7 @@ public class SekActivity extends Activity{
 		/*---------->drawGraph<--------------*/
 		//was muss ich hier einfügen?!?!??!
 		//drawGraph(5);
+//		drawGraph();
 		AppsDataSource tmpAppsDataSource = new AppsDataSource(this);
 		tmpAppsDataSource.open();
 		for(int lc=0;lc<3;lc++)
