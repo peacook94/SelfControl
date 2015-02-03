@@ -146,12 +146,6 @@ public class MainActivity extends Activity implements OnTouchListener{
 		//false indicates the event is not consumed
     }
 	
-	public void getLockStatus(){
-		
-		TextView textView = (TextView) findViewById(R.id.lockStatus);
-		textView.setText(myServiceBinder.getLockStatus());
-	}
-	
 	@Override
 	public void onResume(){
 		Log.d("activity", ""+ "onResume");
@@ -184,8 +178,6 @@ public class MainActivity extends Activity implements OnTouchListener{
 	    TextView myView = (TextView) findViewById(R.id.counter);
 
 	    myView.setText(myServiceBinder.getRunnedTime(new GregorianCalendar(), myServiceBinder.getStartDate()));
-	    
-	    getLockStatus();
 	    
 	    //showRunningApps();
 	    

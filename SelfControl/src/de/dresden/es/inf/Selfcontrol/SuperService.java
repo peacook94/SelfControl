@@ -38,8 +38,6 @@ import android.widget.Toast;
 
 public class SuperService extends Service{
 	
-	String status = "";
-	int statusCounter = 0;
 	private AppsDataSource database;
 	
 	private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -94,8 +92,6 @@ public class SuperService extends Service{
 		            super.handleMessage(msg);
 		            
 		            getRunningApps();
-		            getLockStatus();
-		            statusCounter++;
 		        }
 
 		    };
@@ -150,10 +146,14 @@ public class SuperService extends Service{
 		
 		if(appName.equals("com.android.chrome")){
 			temp = new App(Calendar.getInstance().getTime(), AppId.BROWSER);
+			temp.setLockstate(getLockStatus());
+			temp.setWifistate(0);
 		}
 		
 		if(appName.equals("com.google.android.talk")){
 			temp = new App(Calendar.getInstance().getTime(), AppId.HANGOUTS);
+			temp.setLockstate(getLockStatus());
+			temp.setWifistate(0);
 		}
 		
 		if(temp != null){
@@ -166,16 +166,15 @@ public class SuperService extends Service{
 		
 	}
 	
-	public String getLockStatus(){
+	public int getLockStatus(){
 		
 		KeyguardManager myKGM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
 		if(myKGM.inKeyguardRestrictedInputMode()){
-			status = status + " locked" + statusCounter;
-		}else{
-			status = status + " unlocked" + statusCounter;
+			//locked
+			return 0;
 		}
-		
-		return status;
+		//unlocked
+		return 1;
 	}
 	
 	//laufende apps auslesen
