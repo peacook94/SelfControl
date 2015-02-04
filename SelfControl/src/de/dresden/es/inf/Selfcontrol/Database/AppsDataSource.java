@@ -68,18 +68,28 @@ public class AppsDataSource {
 	}
 	
 	/**
-	 * Gibt eine Map zurück, in der zu jedem Zeitstempel die entsprechende App eingetragen ist.
+	 * Gibt einen Coursor zurück, der alle Zeilen mit dem Key_ID = AppId zurückgibt.
+	 * Dieser Cursor kann wie eine Liste behandelt werden und bequem per moveToNext() und MoveToFirst() und isAfterLast()
+	 * iteriert werden
 	 * 
-	 * @param appName einer oder mehrere appBezeichnungen
+	 * @param appId
 	 * @return
-	 * @throws ParseException wenn das eingetragene Datum von String zu Date konvertiert wird ein Fehler auftritt
 	 */
+	
 	
 	public Cursor getData(AppId appId){
 		
 		Cursor cursor = database.rawQuery("SELECT * FROM "+MySQLHelper.TABLE_APPS+" WHERE appId=?", new String[] {appId.toString()});
 		return cursor;
 	}
+	
+	/**
+	 * Gibt eine Map zurück, in der zu jedem Zeitstempel die entsprechende App eingetragen ist.
+	 * 
+	 * @param appName einer oder mehrere appBezeichnungen
+	 * @return
+	 * @throws ParseException wenn das eingetragene Datum von String zu Date konvertiert wird ein Fehler auftritt
+	 */
 	
 	public Map<Date, AppId> getAppWithDates(AppId appId) throws ParseException{
 		Map<Date, AppId> temp = new HashMap<Date, AppId>();
