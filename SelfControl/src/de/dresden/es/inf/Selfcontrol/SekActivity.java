@@ -135,19 +135,22 @@ public class SekActivity extends Activity{
 		
 
 		float time[]=new float[24];
+		
 		for(int loopcounter=0;loopcounter<24;loopcounter++)
 		{
-			time[loopcounter]=0;
+			time[loopcounter]=0.f;
 		}
+		
 		Iterator<Date> iter = myMap.keySet().iterator();
 		while(iter.hasNext())
 		{
 			Date tmpDate =iter.next();
+			@SuppressWarnings("deprecation")
 			int dateHour = tmpDate.getHours();
-			if(tmpDate.getDay()==new Date().getDay())
-			{
+//			if(tmpDate.getDay() == new Date().getDay())
+//			{
 				time[dateHour]+=5*sec;
-			}
+//			}
 		}
 		GraphView gView = (GraphView) findViewById(R.id.sekGraph);
 		
@@ -159,6 +162,7 @@ public class SekActivity extends Activity{
 		}
 		
 		LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(data);
+		
 		String seriesTitle;
 		switch (myAppId)
 		{
@@ -175,20 +179,43 @@ public class SekActivity extends Activity{
 			seriesTitle="error";
 			break;
 		}
-		series.setTitle(seriesTitle);
+//		series.setTitle(seriesTitle);
 		
-		switch (myAppId)
-		{
-		case PHONEUNLOCKED:
-			gView.addSeries(series);	
-			break;
-		default:
-			gView.getSecondScale().addSeries(series);
-			break;
-		}
+//		switch (myAppId)
+//		{
+//		case PHONEUNLOCKED:
+//			gView.addSeries(series);	
+//			break;
+//		default:
+//			gView.getSecondScale().addSeries(series);
+//			break;
+//		}
 		
-		gView.getGridLabelRenderer().setHorizontalAxisTitle("min/h");
-		gView.getGridLabelRenderer().setVerticalAxisTitle("time");
+		series.setColor(0xFF000000);
+		
+		gView.addSeries(series);
+		
+		
+		
+	}
+	
+	public void setGraphLayout(){
+		
+		GraphView gView = (GraphView) findViewById(R.id.sekGraph);
+		
+		gView.setTitle("Browsernutzung");
+		
+		gView.getViewport().setScalable(true);
+		gView.getViewport().setScrollable(true);
+		
+		gView.getViewport().setXAxisBoundsManual(true);
+		gView.getViewport().setMinX(0);
+		gView.getViewport().setMaxX(24);
+		
+		
+//		gView.getGridLabelRenderer().setNumHorizontalLabels(23);
+		gView.getGridLabelRenderer().setHorizontalAxisTitle("hours");
+		gView.getGridLabelRenderer().setVerticalAxisTitle("min/h");
 	}
 	
 	@Override
@@ -221,21 +248,24 @@ public class SekActivity extends Activity{
 //			});
 //		}
 		
-		drawGraph();
-//		AppsDataSource tmpAppsDataSource = new AppsDataSource(this);
-//		tmpAppsDataSource.open();
+//		drawGraph();
+		AppsDataSource tmpAppsDataSource = new AppsDataSource(this);
+		setGraphLayout();
+		
+		tmpAppsDataSource.open();
 //		for(int lc=0;lc<3;lc++)
 //		{
-//			AppId tmpAppId = AppId.parseString(lc);
-//			try {
-//				Map<Date, AppId> tmpMap=tmpAppsDataSource.getAppWithDates(tmpAppId);
-//				drawGraph(tmpMap,tmpAppId);
-//			} catch (ParseException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+			AppId tmpAppId = AppId.parseString(1);
+			
+			try {
+				Map<Date, AppId> tmpMap=tmpAppsDataSource.getAppWithDates(tmpAppId);			
+				drawGraph(tmpMap,tmpAppId);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //		}
-//		tmpAppsDataSource.close();
+		tmpAppsDataSource.close();
 		
 	}
 

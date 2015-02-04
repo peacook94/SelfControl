@@ -30,6 +30,7 @@
         <activity
             android:name=".SekActivity"
             android:label="@string/title_activity_sek"
+            android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity">
         </activity>
         
