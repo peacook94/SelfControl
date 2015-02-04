@@ -38,6 +38,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -196,7 +197,7 @@ public class MainActivity extends Activity implements OnTouchListener{
         
 
         //den gesamten Bilschirm touchsensitiv machen
-        LinearLayout mLinearLayoutMain = (LinearLayout) findViewById(R.id.layout_main);
+        RelativeLayout mLinearLayoutMain = (RelativeLayout) findViewById(R.id.layout_main);
         mLinearLayoutMain.setOnTouchListener(this);
         
         
@@ -221,57 +222,57 @@ public class MainActivity extends Activity implements OnTouchListener{
         	}
         });
         
-        Button dummyDaten = (Button) findViewById(R.id.setDummyData);
-        dummyDaten.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				App temp = new App(Calendar.getInstance().getTime(), AppId.BROWSER);
-								
-				String errorCode = database.addApp(temp);
-				Toast.makeText(getApplicationContext(), errorCode, Toast.LENGTH_SHORT).show();
-				
-			}
-		});
+//        Button dummyDaten = (Button) findViewById(R.id.setDummyData);
+//        dummyDaten.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				App temp = new App(Calendar.getInstance().getTime(), AppId.BROWSER);
+//								
+//				String errorCode = database.addApp(temp);
+//				Toast.makeText(getApplicationContext(), errorCode, Toast.LENGTH_SHORT).show();
+//				
+//			}
+//		});
         
-        Button getdummyDaten = (Button) findViewById(R.id.getDummyData);
-        getdummyDaten.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Map<Date, AppId> temp = new HashMap<Date, AppId>();
-				
-				
-				try {
-					temp = database.getAppWithDates(AppId.BROWSER);
-					Toast.makeText(getApplicationContext(), String.valueOf(temp.size()), Toast.LENGTH_SHORT).show();
-					
-					for(Date date : temp.keySet()){
-						Toast.makeText(getApplicationContext(), date.toString(), Toast.LENGTH_SHORT).show();
-					}
-					
-					
-					if(temp != null)
-						Toast.makeText(getApplicationContext(), "Datenbankeintrag gefunden", Toast.LENGTH_SHORT);
-					
-				} catch (ParseException e) {
-					Toast.makeText(getApplicationContext(),"BROWSER not found", Toast.LENGTH_SHORT).show();
-				}
-				
-				
-			}
-		});
+//        Button getdummyDaten = (Button) findViewById(R.id.getDummyData);
+//        getdummyDaten.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				Map<Date, AppId> temp = new HashMap<Date, AppId>();
+//				
+//				
+//				try {
+//					temp = database.getAppWithDates(AppId.BROWSER);
+//					Toast.makeText(getApplicationContext(), String.valueOf(temp.size()), Toast.LENGTH_SHORT).show();
+//					
+//					for(Date date : temp.keySet()){
+//						Toast.makeText(getApplicationContext(), date.toString(), Toast.LENGTH_SHORT).show();
+//					}
+//					
+//					
+//					if(temp != null)
+//						Toast.makeText(getApplicationContext(), "Datenbankeintrag gefunden", Toast.LENGTH_SHORT);
+//					
+//				} catch (ParseException e) {
+//					Toast.makeText(getApplicationContext(),"BROWSER not found", Toast.LENGTH_SHORT).show();
+//				}
+//				
+//				
+//			}
+//		});
         
-        Button switchButton2 = (Button) findViewById(R.id.mainButton2);
-        switchButton2.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent nextScreen = new Intent(getApplicationContext(), Vis1.class);
-				
-				startActivity(nextScreen);
-			}
-		});
+//        Button switchButton2 = (Button) findViewById(R.id.mainButton2);
+//        switchButton2.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				Intent nextScreen = new Intent(getApplicationContext(), Vis1.class);
+//				
+//				startActivity(nextScreen);
+//			}
+//		});
         
         Button serviceButton = (Button) findViewById(R.id.startServiceButton);
         
@@ -285,13 +286,13 @@ public class MainActivity extends Activity implements OnTouchListener{
 			}
 		});
         
-        Button getDataButton = (Button) findViewById(R.id.getServiceDataButton);
-        getDataButton.setOnClickListener(new View.OnClickListener(){
-        	@Override
-        	public void onClick(View v){
-        		showServiceData();
-        	}
-        });
+//        Button getDataButton = (Button) findViewById(R.id.getServiceDataButton);
+//        getDataButton.setOnClickListener(new View.OnClickListener(){
+//        	@Override
+//        	public void onClick(View v){
+//        		showServiceData();
+//        	}
+//        });
         
         if(isMyServiceRunning(SuperService.class)){
         	Toast.makeText(this, "Service läuft ohne Aufruf",Toast.LENGTH_SHORT).show();

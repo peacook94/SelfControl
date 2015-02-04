@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Strings des Services -->
+    <!-- Strings der MainActivity -->
     
     <string name="app_name">SelfControl</string>
     <string name="hello_world">Hello world!</string>
@@ -13,6 +13,7 @@
     <string name="getServiceData">Service Runtime abfragen</string>
     <string name="setDummyData">DummyDaten eintragen</string>
     <string name="getDummyData">DummyDaten abholen</string>
+    <string name="Ueberschrift">Self Control</string>
 
     <!-- Strings der zweiten Activity!: -->
 

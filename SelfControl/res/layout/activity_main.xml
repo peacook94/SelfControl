@@ -1,42 +1,63 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
+    android:orientation="vertical"
+    >
+    
+    <TextView
+        android:id="@+id/Ueberschrift"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="30sp"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="@string/Ueberschrift"/>
+    
     <TextView
         android:id="@+id/counter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/counterString"/>
+        android:text="@string/counterString"
+        android:layout_below="@id/Ueberschrift"/>
+    
+    <RelativeLayout
+        android:id="@+id/innerRelLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     
     <Button 
         android:id="@+id/mainButton1" 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mainButton1Text" />
+        android:text="@string/mainButton1Text"         
+        android:layout_above="@+id/startServiceButton"/>
     
-    <Button 
+<!--     <Button 
         android:id="@+id/mainButton2" 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/mainButton2Text"/>
-    
-    <Button 
+ -->
+
+    <Button
         android:id="@+id/startServiceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/startServiceButton"/>
+        android:text="@string/startServiceButton"
+        android:layout_alignParentBottom="true" />
     
-    <Button 
+<!--     <Button 
         android:id="@+id/getServiceDataButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/getServiceData"/>
-        
+ -->        
 
     
-    <Button
+<!--     <Button
         android:id="@+id/setDummyData" 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,5 +68,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/getDummyData"/>
-
-</LinearLayout>
+ -->
+  </RelativeLayout>
+</RelativeLayout>
