@@ -16,6 +16,7 @@ import de.dresden.es.inf.Selfcontrol.Util.AppId;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -259,6 +260,37 @@ float time[]=new float[24];
 		gView.getGridLabelRenderer().setVerticalAxisTitle("min/h");
 	}
 	
+	public void updateGraph(){
+		AppsDataSource tmpAppsDataSource = new AppsDataSource(this);
+		setGraphLayout();
+		
+		AppId tmpAppId = AppId.parseString(1);
+		AppId tempAppId2 = AppId.parseString(2);
+		GraphView gView = (GraphView) findViewById(R.id.sekGraph);
+		
+		tmpAppsDataSource.open();
+//		for(int lc=0;lc<3;lc++)
+//		{
+			
+			
+			try {
+				Map<Date, AppId> tmpMap=tmpAppsDataSource.getAppWithDates(tmpAppId);			
+				gView.addSeries(createSeries(tmpMap,tmpAppId, 0xFF000000));
+				
+				Map<Date, AppId> tmpMap2=tmpAppsDataSource.getAppWithDates(tempAppId2);			
+				gView.addSeries(createSeries(tmpMap2,tempAppId2, 0xBF00BF00));
+				
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+//		}
+		tmpAppsDataSource.close();
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -290,32 +322,26 @@ float time[]=new float[24];
 //		}
 		
 //		drawGraph();
-		AppsDataSource tmpAppsDataSource = new AppsDataSource(this);
-		setGraphLayout();
 		
-		tmpAppsDataSource.open();
-//		for(int lc=0;lc<3;lc++)
-//		{
-			AppId tmpAppId = AppId.parseString(1);
-			AppId tempAppId2 = AppId.parseString(2);
-			GraphView gView = (GraphView) findViewById(R.id.sekGraph);
+		GraphView gView = (GraphView) findViewById(R.id.sekGraph);
+		updateGraph();
+		
+		
+		gView.setOnTouchListener( new View.OnTouchListener() {
 			
-			try {
-				Map<Date, AppId> tmpMap=tmpAppsDataSource.getAppWithDates(tmpAppId);			
-				gView.addSeries(createSeries(tmpMap,tmpAppId, 0xFF000000));
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(event.getActionMasked() == MotionEvent.ACTION_DOWN) return true;
+				if(event.getActionMasked() == MotionEvent.ACTION_UP){ 
 				
-				Map<Date, AppId> tmpMap2=tmpAppsDataSource.getAppWithDates(tempAppId2);			
-				gView.addSeries(createSeries(tmpMap2,tempAppId2, 0xBF00BF00));
-				
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+					updateGraph();
+		        
+
+					return true;
+				}
+				 return false;
 			}
-			
-			
-			
-//		}
-		tmpAppsDataSource.close();
+		});
 		
 	}
 
