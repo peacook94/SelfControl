@@ -24,6 +24,8 @@ import android.widget.TextView;
 public class SekActivity extends Activity{
 	public final static float sec = 1.0f/60;
 	
+	private final GraphView gView = (GraphView) findViewById(R.id.sekGraph);
+	
 	
 //	public void onRadioButtonClicked(View view) {
 //	    // Is the button now checked?
@@ -102,7 +104,6 @@ public class SekActivity extends Activity{
 				}
 			}
 		}
-		GraphView gView = (GraphView) findViewById(R.id.sekGraph);
 		
 		DataPoint[] data_PHONEUNLOCKED = new DataPoint[24];
 		DataPoint[] data_BROWSER = new DataPoint[24];
@@ -200,8 +201,6 @@ public class SekActivity extends Activity{
 	}
 	
 	public void setGraphLayout(){
-		
-		GraphView gView = (GraphView) findViewById(R.id.sekGraph);
 		
 		gView.setTitle("Browsernutzung");
 		
