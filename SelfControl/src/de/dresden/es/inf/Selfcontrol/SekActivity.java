@@ -24,7 +24,7 @@ import android.widget.TextView;
 public class SekActivity extends Activity{
 	public final static float sec = 1.0f/60;
 	
-	private final GraphView gView = (GraphView) findViewById(R.id.sekGraph);
+//	public final GraphView gView = (GraphView) findViewById(R.id.sekGraph);
 	
 	
 //	public void onRadioButtonClicked(View view) {
@@ -56,6 +56,8 @@ public class SekActivity extends Activity{
 	
 	public void drawGraph()
 {
+		GraphView gView = (GraphView) findViewById(R.id.sekGraph);
+		
 		float t_PHONEUNLOCKED[]=new float[24];
 		float t_BROWSER[]=new float[24];
 		float t_HANGOUTS[]=new float[24];
@@ -130,8 +132,46 @@ public class SekActivity extends Activity{
 		gView.getSecondScale().addSeries(series_BROWSER);
 		gView.getSecondScale().addSeries(series_HANGOUTS);
 	}
+	
+	public LineGraphSeries<DataPoint> createSeries(Map<Date, AppId> myMap, AppId myAppId, int color){
+	
+float time[]=new float[24];
+		
+		for(int loopcounter=0;loopcounter<24;loopcounter++)
+		{
+			time[loopcounter]=0.f;
+		}
+		
+		Iterator<Date> iter = myMap.keySet().iterator();
+		while(iter.hasNext())
+		{
+			Date tmpDate =iter.next();
+			@SuppressWarnings("deprecation")
+			int dateHour = tmpDate.getHours();
+//			if(tmpDate.getDay() == new Date().getDay())
+//			{
+				time[dateHour]+=5*sec;
+//			}
+		}
+		GraphView gView = (GraphView) findViewById(R.id.sekGraph);
+		
+		DataPoint[] data = new DataPoint[24];
+		
+		for(int i=0; i<24;i++){
+			data[i] = new DataPoint(i, time[i]);
 
-	public void drawGraph(Map<Date, AppId> myMap, AppId myAppId)
+		}
+		
+		
+		
+		LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(data);
+		series.setColor(color);
+		
+		return series;
+		
+	}
+
+	public void drawGraph(Map<Date, AppId> myMap, AppId myAppId, int color)
 	{
 		
 
@@ -164,22 +204,22 @@ public class SekActivity extends Activity{
 		
 		LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(data);
 		
-		String seriesTitle;
-		switch (myAppId)
-		{
-		case PHONEUNLOCKED:
-			seriesTitle="Gesamtzeit";	
-		break;
-		case BROWSER:
-			seriesTitle="Browser";
-		break;
-		case HANGOUTS:
-			seriesTitle="Hangouts?";
-		break;
-		default:
-			seriesTitle="error";
-			break;
-		}
+//		String seriesTitle;
+//		switch (myAppId)
+//		{
+//		case PHONEUNLOCKED:
+//			seriesTitle="Gesamtzeit";	
+//		break;
+//		case BROWSER:
+//			seriesTitle="Browser";
+//		break;
+//		case HANGOUTS:
+//			seriesTitle="Hangouts?";
+//		break;
+//		default:
+//			seriesTitle="error";
+//			break;
+//		}
 //		series.setTitle(seriesTitle);
 		
 //		switch (myAppId)
@@ -192,7 +232,7 @@ public class SekActivity extends Activity{
 //			break;
 //		}
 		
-		series.setColor(0xFF000000);
+		series.setColor(color);
 		
 		gView.addSeries(series);
 		
@@ -201,6 +241,8 @@ public class SekActivity extends Activity{
 	}
 	
 	public void setGraphLayout(){
+		
+		GraphView gView = (GraphView) findViewById(R.id.sekGraph);
 		
 		gView.setTitle("Browsernutzung");
 		
@@ -255,14 +297,23 @@ public class SekActivity extends Activity{
 //		for(int lc=0;lc<3;lc++)
 //		{
 			AppId tmpAppId = AppId.parseString(1);
+			AppId tempAppId2 = AppId.parseString(2);
+			GraphView gView = (GraphView) findViewById(R.id.sekGraph);
 			
 			try {
 				Map<Date, AppId> tmpMap=tmpAppsDataSource.getAppWithDates(tmpAppId);			
-				drawGraph(tmpMap,tmpAppId);
+				gView.addSeries(createSeries(tmpMap,tmpAppId, 0xFF000000));
+				
+				Map<Date, AppId> tmpMap2=tmpAppsDataSource.getAppWithDates(tempAppId2);			
+				gView.addSeries(createSeries(tmpMap2,tempAppId2, 0xBF00BF00));
+				
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			
+			
 //		}
 		tmpAppsDataSource.close();
 		
