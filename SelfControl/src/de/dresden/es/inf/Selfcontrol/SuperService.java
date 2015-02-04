@@ -219,7 +219,7 @@ public class SuperService extends Service{
 			for(int j = 0; j < appFilter.size(); j++){
 
 				if(runningTasks.get(i).topActivity.getPackageName().equals(appFilter.get(j))){
-					Toast.makeText(this, appFilter.get(j) + " läuft", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(this, appFilter.get(j) + " läuft", Toast.LENGTH_SHORT).show();
 					
 					//DB-Eintrag
 					writeToDB(appFilter.get(j));
